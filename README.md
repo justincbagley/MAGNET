@@ -1,5 +1,5 @@
 # MAGNET
-shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
+Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
 
 LICENSE
 -------
@@ -43,7 +43,7 @@ MAGNET focuses on allowing users to automate the workflow necessary for quickly 
 SOFTWARE DEPENDENCIES
 -------
 
-MAGNET relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package; however, here I provide a list of them, with asterisk marks preceding those already included in the MAGNET distribution:
+MAGNET is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisk marks preceding those already included in the MAGNET distribution:
 
 - Perl (available at: https://www.perl.org/get.html).
 - *Nayoki Takebayashi's file conversion Perl scripts (available at: http://raven.iab.alaska.edu/~ntakebay/teaching/programming/perl-scripts/perl-scripts.html).
@@ -51,12 +51,17 @@ MAGNET relies on several software dependencies. These dependencies are described
 - bioscripts.convert v0.4 Python package (available at: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for "NEXUS2gphocs.sh").
 - RAxML, installed and running on remote supercomputer (available at: http://sco.h-its.org/exelixis/web/software/raxml/index.html).
 
-Users must install all software not included in MAGNET, and ensure that it is available via the command line on their local machine. On the user's local machine, Perl should be available by simply typing "Perl" at the command line; Python should be available by simply  typing "python" at the command lnie; and bioscripts.convert package should be available by typing "convbioseq" at the command line. Also, RAxML should be compiled using SSE3 install commands, so that when you are logged into your supercomputer by ssh pipe, RAxML should be called by simply typing "raxmlHPC-SSE3". For detailed instructions for setting up RAxML this way, refer to the newest RAxML user manual (available at: http://sco.h-its.org/exelixis/resource/download/NewManual.pdf).
+Users must install all software not included in MAGNET, and ensure that it is available via the command line on their local machine. On the user's local machine, Perl should be available by simply typing "Perl" at the command line; Python should be available by simply  typing "python" at the command line; and bioscripts.convert package should be available by typing "convbioseq" at the command line. Also, RAxML should be compiled using SSE3 install commands, so that when you are logged into your supercomputer by ssh pipe, RAxML should be called by simply typing "raxmlHPC-SSE3". For detailed instructions for setting up RAxML this way, refer to the newest RAxML user manual (available at: http://sco.h-its.org/exelixis/resource/download/NewManual.pdf).
 
 INPUT FILE FORMAT
 -------
 
 MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP data files in various formats including .gphocs format in pyRAD (Eaton REF) or ipyrad (Eaton REF) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET that will convert a sequential NEXUS file into .gphocs format for you. 
+
+Additional input file info is available in the usage statement, accessed by executing the main MAGNET script with no input file, 
+````
+./MAGNET.sh
+````
 
 PIPELINE
 -------
