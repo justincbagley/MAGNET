@@ -56,16 +56,9 @@ Users must install all software not included in MAGNET, and ensure that it is av
 INPUT FILE FORMAT
 -------
 
-MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP data files in various formats including .gphocs format in pyRAD (Eaton REF) or ipyrad (Eaton REF) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET that will convert a sequential NEXUS file into .gphocs format for you. 
+MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP data files in various formats including .gphocs format in pyRAD (Eaton REF) or ipyrad (Eaton REF) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. 
 
-Additional input file info is available in the usage statement, accessed by executing the main MAGNET script with no input file, 
-````
-./MAGNET.sh
-````
-Feel free to use the NEXUS2gphocs.sh script independently of MAGNET to convert from .gphocs to NEXUS format. To get more info on how to do this, get the usage for this script executing it with no input file. Do this by typing the following at the command line from within the MAGNET distribution folder:
-````
-**/NEXUS2gphocs.sh 
-````
+Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from .gphocs to NEXUS format. To do this, see usage info below.
 
 PIPELINE
 -------
@@ -74,7 +67,105 @@ Apart from input file conversion steps, the MAGNET pipeline works by calling thr
 
 After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates post-processing of the output, including organizing all inferred gene trees into a single "gene_trees" folder in the working directory, and combining the individual 'best' gene trees resulting from each run into a single file named "besttrees.tre".
 
+USAGE
+-------
 
+Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts, as well as the output info:  
+````
+./MAGNET.sh
+
+Usage: ./MAGNET.sh [options] inputNexus
+  
+Options: -b numBootstraps (def: 100) | -r raxmlModel (def: GTRGAMMA; other: GTRCAT) | -g gapThreshold (def: 0.001=essentially zero gaps allowed unless >1000 individuals; takes float proportion value) | -m indivMissingData (def: 1=allowed; 0=removed)
+
+Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
+a separate phylip-formatted alignment file, and sets up and runs RAxML to infer gene trees 
+for each locus. If a NEXUS datafile is supplied, it is converted into G-PhoCS format (Gronau 
+et al. 2011). Sequence names may not include hyphen characters, or there will be issues. 
+For info on various dependencies, see 'README.md' file in the distribution folder; however,
+it is key that the dependencies are available from the command line interface. 
+
+The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
+the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
+
+The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
+and at present it is not possible to vary the model across loci. If you want to use HKY
+or K80, you will need to manually change the 'RAxMLRunner.sh' section of this script.
+
+The following options are available ONLY if you are starting from a NEXUS input file:
+
+	The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
+	the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
+	If no gap threshold is specified, all sites with gaps are removed by default. If end goal
+	is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
+	However, if the next step in your pipeline involves converting from .gphocs to other data 
+	formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
+	format for RAxML). 
+
+	The -m flag allows users to choose their level of tolerance for individuals with missing
+	data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
+	missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
+	indivMissingData=0 removes all such individuals from each locus; thus, while the input
+	file would have had the same number of individuals across loci, the resulting file could
+	have varying numbers of individuals for different loci.
+````
+or
+
+````
+./NEXUS2gphocs.sh
+
+Usage: shell/NEXUS2gphocs.sh [options] inputNexus
+  
+Options: -g gapThreshold (def: 0=zero gaps allowed; takes float proportion value) | -m indivMissingData (def: 1=allowed; 0=removed)
+
+Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
+(Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
+issues. For best results, update to R v3.3.1 or higher.
+
+The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
+the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
+If no gap threshold is specified, all sites with gaps are removed by default. If end goal
+is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
+However, if the next step in your pipeline involves converting from .gphocs to other data 
+formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
+format for RAxML). 
+
+The -m flag allows users to choose their level of tolerance for individuals with missing
+data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
+missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
+indivMissingData=0 removes all such individuals from each locus; thus, while the input
+file would have had the same number of individuals across loci, the resulting file could
+have varying numbers of individuals for different loci.
+
+Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
+'selectSites.pl' in working directory or available from command line (in your path).
+````
+
+**Below I give some examples of how to use the software under the two most common scenarios:**
+
+**Scenario 1.** If your data contain very little missing data and, in particular, they contain no individuals with all missing data for a locus, then it should be fine to run MAGNET using the default options (giving no flags):
+````
+./MAGNET.sh inputNexus
+````
+**Scenario 2.** If your data are relatively lower quality data (e.g. from NGS runs) and you have lots of missing data, including individuals with all missing data for a locus (as is common for RAD tag/SNP data), then RAxML will not run properly under the default MAGNET options. You will likely get up to ~10 messages like "ERROR: Sequence HypJCB124 consists entirely of undetermined values which will be treated as missing data", follwed by a summary like this: "ERROR: Found 9 sequences that consist entirely of undetermined values, exiting...", and RAxML will quit. The rest of the pipeline will be affected, for example the final summary gene tree file will make no sense because it will simply include a concatenation of all files in the working directory. 
+
+To avoid the above issues caused by large amounts of missing data, you should run MAGNET while **setting the -m flag to 0** (indivMissingData=0) to specify that individuals with missing data are NOT allowed:
+````
+##--Scenario 2, all params except indivMissingData set to default options:
+./MAGNET.sh -m 0 inputNexus
+````
+
+In addition to the above, here are illustrations of the **RAxML options**:
+````
+##--Scenario 1, GTRCAT model, instead of the default GTRGAMMA model:
+./MAGNET.sh -r GTRCAT inputNexus
+
+##--Scenario 2, 500 bootstrap reps per locus, instead of the default 100:
+./MAGNET.sh -b 500 -m 0 inputNexus
+
+##--Scenario 2, 0 bootstrap reps per locus:
+./MAGNET.sh -b 0 -m 0 inputNexus
+````
 
 
 August 29, 2016
