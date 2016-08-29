@@ -62,6 +62,10 @@ Additional input file info is available in the usage statement, accessed by exec
 ````
 ./MAGNET.sh
 ````
+Feel free to use the NEXUS2gphocs.sh script independently of MAGNET to convert from .gphocs to NEXUS format. To get more info on how to do this, get the usage for this script executing it with no input file. Do this by typing the following at the command line from within the MAGNET distribution folder:
+````
+**/NEXUS2gphocs.sh 
+````
 
 PIPELINE
 -------
@@ -75,4 +79,3 @@ After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates 
 
 August 29, 2016
 Justin C. Bagley, Brasília, DF, Brazil
-
