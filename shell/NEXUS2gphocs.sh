@@ -33,8 +33,9 @@ if [ $# -lt 1 ]; then
   echo "
 Usage: $0 [options] inputNexus
   "
-  echo "Options: -g gapThreshold (def: $MY_GAP_THRESHOLD=zero gaps allowed; takes float \
-proportion value) | -m indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+  echo "Options: -g gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed \
+unless >1000 individuals; takes float proportion value) | -m indivMissingData (def: \
+$MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
 Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
 (Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
