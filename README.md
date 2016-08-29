@@ -19,7 +19,7 @@ Alternatively, please provide the following link to this software program in you
 
   http://github.com/justincbagley/MAGNET
   
-Example citations using the above URL: 
+**Example citations using the above URL:** 
 	"We estimated a gene tree for each SNP locus in RAxML v8 (Stamatakis 2014) using 
 	the MAGNET pipeline in the PIrANHA github repository (http://github.com/justincbagley/MAGNET).
 	Each RAxML run specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny
