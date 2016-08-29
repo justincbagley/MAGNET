@@ -17,7 +17,7 @@
 ## OPTION DEFAULTS ##
 MY_NUM_BOOTREPS=100
 MY_RAXML_MODEL=GTRGAMMA
-MY_GAP_THRESHOLD=0
+MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
 ## PARSE THE OPTIONS ##
@@ -38,8 +38,9 @@ if [ $# -lt 1 ]; then
 Usage: $0 [options] inputNexus
   "
   echo "Options: -b numBootstraps (def: $MY_NUM_BOOTREPS) | -r raxmlModel \
-(def: $MY_RAXML_MODEL; other: GTRCAT) | -g gapThreshold (def: $MY_GAP_THRESHOLD=zero gaps \
-allowed; takes float proportion value) | -m indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+(def: $MY_RAXML_MODEL; other: GTRCAT) | -g gapThreshold (def: $MY_GAP_THRESHOLD=essentially \
+zero gaps allowed unless >1000 individuals; takes float proportion value) | -m indivMissingData \
+(def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
 Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
 a separate phylip-formatted alignment file, and sets up and runs RAxML to infer gene trees 
