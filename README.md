@@ -1,4 +1,4 @@
-# MAGNET
+# MAGNET (MAny GeNE Trees)
 Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
 
 LICENSE
