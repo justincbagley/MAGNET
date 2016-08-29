@@ -195,7 +195,7 @@ NEXUS2gphocs_function () {
 
 
 			rm ./sites.fasta ./sites.phy ./*.tmp
-			rm ./gaptest.tmp ./sites_nogaps.phy
+			rm ./sites_nogaps.phy
 	
 		done
 	)
