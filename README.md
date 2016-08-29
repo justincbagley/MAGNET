@@ -112,6 +112,7 @@ The following options are available ONLY if you are starting from a NEXUS input 
 	have varying numbers of individuals for different loci.
 ````
 
+
 **_IMPORTANT NOTE on NEXUS2gphocs usage:_ In its current form, you must move NEXUS2gphocs.sh (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script.** (This also assumes the target inputNexus is also located in the MAGNET dir.)
 
 To get usage info for NEXUS2gphocs.sh, type the first line blow while in the MAGNET directory, and you will get the output that follows:
