@@ -15,7 +15,7 @@
 
 ############ SCRIPT OPTIONS
 ## OPTION DEFAULTS ##
-MY_GAP_THRESHOLD=0
+MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
 ## PARSE THE OPTIONS ##
@@ -147,28 +147,25 @@ count=0
 		locus_nchar="$(head -n1 ./sites_nogaps.phy | sed 's/[0-9]*\ //g')"
 			
 			
-				if [ $MY_INDIV_MISSING_DATA = "0" ]; then	
-					sed '1d' ./sites_nogaps.phy | grep -v 'NNNNNNNNNN' > ./cleanLocus.tmp
+        			 if [ $MY_INDIV_MISSING_DATA == 0 ]; then
+					sed '1d' ./sites_nogaps.phy | egrep -v 'NNNNNNNNNN|nnnnnnnnnn' > ./cleanLocus.tmp
 					cleanLocus_ntax="$(cat ./cleanLocus.tmp | wc -l)"
 					echo locus"$((count++))" $cleanLocus_ntax $locus_nchar > ./locus_top.tmp
-
 					cat ./locus_top.tmp ./cleanLocus.tmp >> ./gphocs_body.txt
-
 				else
-
 					echo locus"$((count++))" $locus_ntax $locus_nchar > ./locus_top.tmp
-					
 					cat ./locus_top.tmp ./sites_nogaps.phy >> ./gphocs_body.txt
-
 				fi
 
 		rm ./sites.fasta ./sites.phy ./*.tmp
-		rm ./gaptest.tmp ./sites_nogaps.phy
+		rm ./sites_nogaps.phy
 
 	done
 )
 
-cat ./gphocs_top.txt ./gphocs_body.txt > $MY_NEXUS_BASENAME.gphocs
+grep -v "^[0-9]*\ [0-9]*.*$" ./gphocs_body.txt > ./gphocs_body_fix.txt
+
+cat ./gphocs_top.txt ./gphocs_body_fix.txt > $MY_NEXUS_BASENAME.gphocs
 
 
 ############ STEP #4: CLEANUP: REMOVE UNNECESSARY FILES
