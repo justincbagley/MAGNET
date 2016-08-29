@@ -38,9 +38,9 @@ if [ $# -lt 1 ]; then
 Usage: $0 [options] inputNexus
   "
   echo "Options: -b numBootstraps (def: $MY_NUM_BOOTREPS) | -r raxmlModel \
-(def: $MY_RAXML_MODEL; other: GTRCAT) | -g gapThreshold (def: $MY_GAP_THRESHOLD=essentially \
-zero gaps allowed unless >1000 individuals; takes float proportion value) | -m indivMissingData \
-(def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+(def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI) | -g gapThreshold (def: \
+$MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 individuals; takes float \
+proportion value) | -m indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
 Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
 a separate phylip-formatted alignment file, and sets up and runs RAxML to infer gene trees 
@@ -184,7 +184,7 @@ NEXUS2gphocs_function () {
 			
 			
 				if [ $MY_INDIV_MISSING_DATA = "0" ]; then	
-					sed '1d' ./sites_nogaps.phy | grep -v 'NNNNNNNNNN' > ./cleanLocus.tmp
+					sed '1d' ./sites_nogaps.phy | egrep -v 'NNNNNNNNNN|nnnnnnnnnn' > ./cleanLocus.tmp
 					cleanLocus_ntax="$(cat ./cleanLocus.tmp | wc -l)"
 					echo locus"$((count++))" $cleanLocus_ntax $locus_nchar > ./locus_top.tmp
 					cat ./locus_top.tmp ./cleanLocus.tmp >> ./gphocs_body.txt
@@ -315,7 +315,7 @@ for i in ./*/
     echo $i
     cd $i
     LOCUS_NAME="$(echo $i | sed 's/\.\///g; s/\/$//g')"
-    raxmlHPC-SSE3 -f a -x 12345 -p $(python -c "import random; print random.randint(10000,100000000000)") -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy -n raxml_out
+    raxmlHPC-SSE3 -f a -x $(python -c "import random; print random.randint(10000,100000000000)") -p $(python -c "import random; print random.randint(10000,100000000000)") -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy -n raxml_out
 	cd ..
 done
 )
