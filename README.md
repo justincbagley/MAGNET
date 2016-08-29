@@ -70,7 +70,9 @@ After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates 
 USAGE
 -------
 
-Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts, as well as the output info:  
+Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts. 
+
+To get usage info for MAGNET, type the first line blow while in the MAGNET directory, and you will get the output that follows:
 ````
 ./MAGNET.sh
 
@@ -109,7 +111,10 @@ The following options are available ONLY if you are starting from a NEXUS input 
 	file would have had the same number of individuals across loci, the resulting file could
 	have varying numbers of individuals for different loci.
 ````
-or
+
+**_IMPORTANT NOTE on NEXUS2gphocs usage:_ In its current form, you must move NEXUS2gphocs.sh (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script.** (This also assumes the target inputNexus is also located in the MAGNET dir.)
+
+To get usage info for NEXUS2gphocs.sh, type the first line blow while in the MAGNET directory, and you will get the output that follows:
 
 ````
 ./NEXUS2gphocs.sh
