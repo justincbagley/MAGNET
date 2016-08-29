@@ -1,4 +1,4 @@
-# MAGNET (MAny GeNE Trees)
+# MAGNET (MAny GeNE Trees) :deciduous_tree::deciduous_tree::deciduous_tree:
 Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
 
 LICENSE
@@ -37,7 +37,9 @@ Despite the importance of gene trees in species tree and network inference, few 
 HARDWARE AND SETUP
 -------
 
-MAGNET focuses on allowing users to automate the workflow necessary for quickly estimating many gene trees for many loci on their local machine. No special hardware or setup is necessary, unless the user is interested in estimating gene trees on a remote supercomputing cluster. In that case, the user is referred to the c-MAGNET or "cluster MAGNET" software repository (https://github.com/justincbagley/c-MAGNET/).
+:computer: MAGNET focuses on allowing users to automate the workflow necessary for quickly estimating many gene trees for many loci on their local machine. 
+
+:thumbsup: No special hardware or setup is necessary, unless the user is interested in estimating gene trees on a remote supercomputing cluster. In that case, the user is referred to the c-MAGNET or "cluster MAGNET" software repository (https://github.com/justincbagley/c-MAGNET/).
 
 
 SOFTWARE DEPENDENCIES
