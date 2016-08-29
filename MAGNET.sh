@@ -200,12 +200,16 @@ NEXUS2gphocs_function () {
 		done
 	)
 
-cat ./gphocs_top.txt ./gphocs_body.txt > $MY_NEXUS_BASENAME.gphocs
+grep -v "^[0-9]*\ [0-9]*.*$" ./gphocs_body.txt > ./gphocs_body_fix.txt
 
-############ CLEANUP: REMOVE UNNECESSARY OR TEMPORARY FILES
+cat ./gphocs_top.txt ./gphocs_body_fix.txt > $MY_NEXUS_BASENAME.gphocs
+
+
+############ CLEANUP: REMOVE UNNECESSARY FILES
 rm ./gphocs_top.txt
 rm ./gap_threshold.txt
-rm ./gphocs_body.txt
+rm ./gphocs_body.txt ./gphocs_body_fix.txt
+
 
 }
 
