@@ -4,7 +4,7 @@ Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SN
 LICENSE
 -------
 
-All code within the PIrANHA repository, including MAGNET pipeline code, is available "AS IS" under a generous GNU license. See the License.txt file for more information.
+All code within the PIrANHA repository, including MAGNET pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
 
 CITATION
 -------
