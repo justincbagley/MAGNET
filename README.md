@@ -58,9 +58,9 @@ Users must install all software not included in MAGNET, and ensure that it is av
 INPUT FILE FORMAT
 -------
 
-MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP data files in various formats including .gphocs format in pyRAD (Eaton REF) or ipyrad (Eaton REF) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. 
+MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP data files in various formats including .gphocs format in pyRAD (Eaton REF) or ipyrad (Eaton REF) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. An example NEXUS file "example.nex" is included in the distribution.
 
-Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from .gphocs to NEXUS format. To do this, see usage info below.
+Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from .gphocs to NEXUS format. However, when doing this, _make sure to follow the usage guidelines below_.
 
 PIPELINE
 -------
@@ -153,7 +153,12 @@ Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and
 
 **SCENARIO 1.** If your data contain very little missing data and, in particular, they contain no individuals with all missing data for a locus, then it should be fine to run MAGNET using the default options (giving no flags) as follows:
 ````
+##--Scenario 1, generic usage:
 ./MAGNET.sh inputNexus
+
+##--Example:
+cd ~/Downloads/MAGNET-master/
+./MAGNET.sh example.nex
 ````
 **SCENARIO 2.** If your data are relatively lower quality data (e.g. from NGS runs) and you have lots of missing data, including individuals with all missing data for a locus (as is common for RAD tag/SNP data), then RAxML will not run properly under the default MAGNET options. You will likely get up to ~10 messages like "ERROR: Sequence XXXXX consists entirely of undetermined values which will be treated as missing data", follwed by a summary like this: "ERROR: Found 10 sequences that consist entirely of undetermined values, exiting...", and RAxML will quit. The rest of the pipeline will be affected, for example the final summary gene tree file will make no sense because it will simply include a concatenation of all files in the working directory. 
 
@@ -161,6 +166,10 @@ To avoid the above issues caused by large amounts of missing data, you should ru
 ````
 ##--Scenario 2, all params except indivMissingData set to default options:
 ./MAGNET.sh -m0 inputNexus
+
+##--Example:
+cd ~/Downloads/MAGNET-master/
+./MAGNET.sh -m0 example.nex
 ````
 
 In addition to the above, here are illustrations of the **RAxML options**:
