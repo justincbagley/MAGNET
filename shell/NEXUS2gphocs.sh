@@ -117,9 +117,9 @@ count=0
         setLower="$(echo ${j} | sed 's/\-.*$//g')"
 		setUpper="$(echo ${j} | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')"
 
-		selectSites.pl -s $charRange $MY_FASTA > ./sites.fasta
+		**/selectSites.pl -s $charRange $MY_FASTA > ./sites.fasta
 			
-		fasta2phylip.pl ./sites.fasta > ./sites.phy
+		**/fasta2phylip.pl ./sites.fasta > ./sites.phy
 
 
 				##--If .phy file from NEXUS charset $j has gaps in alignment, then call 
@@ -136,7 +136,7 @@ count=0
 				##--is output by rmGapSites.R and move forward:
 				if [ -s ./gaptest.tmp ]; then
 					echo "Removing column sites in locus"$count" with gaps. "
-					R CMD BATCH ./rmGapSites.R
+					R CMD BATCH **/rmGapSites.R
 				else
 			   		echo ""
 			   		cat ./sites.phy > ./sites_nogaps.phy
