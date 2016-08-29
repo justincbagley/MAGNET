@@ -152,19 +152,19 @@ Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and
 To avoid the above issues caused by large amounts of missing data, you should run MAGNET while **setting the -m flag to 0** (indivMissingData=0) to specify that individuals with missing data are NOT allowed:
 ````
 ##--Scenario 2, all params except indivMissingData set to default options:
-./MAGNET.sh -m 0 inputNexus
+./MAGNET.sh -m0 inputNexus
 ````
 
 In addition to the above, here are illustrations of the **RAxML options**:
 ````
 ##--Scenario 1, GTRCAT model, instead of the default GTRGAMMA model:
-./MAGNET.sh -r GTRCAT inputNexus
+./MAGNET.sh -rGTRCAT inputNexus
 
 ##--Scenario 2, 500 bootstrap reps per locus, instead of the default 100:
-./MAGNET.sh -b 500 -m 0 inputNexus
+./MAGNET.sh -b500 -m0 inputNexus
 
 ##--Scenario 2, 0 bootstrap reps per locus:
-./MAGNET.sh -b 0 -m 0 inputNexus
+./MAGNET.sh -b0 -m0 inputNexus
 ````
 
 
