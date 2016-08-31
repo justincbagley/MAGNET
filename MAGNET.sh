@@ -179,7 +179,7 @@ NEXUS2gphocs_function () {
 				
 				
 			phylip_header="$(head -n1 ./sites_nogaps.phy)"
-	        locus_ntax="$(head -n1 ./sites_nogaps.phy | sed 's/[\ ]*[.0-9]*$//g')"
+	        	locus_ntax="$(head -n1 ./sites_nogaps.phy | sed 's/[\ ]*[.0-9]*$//g')"
 			locus_nchar="$(head -n1 ./sites_nogaps.phy | sed 's/[0-9]*\ //g')"
 			
 			
@@ -202,13 +202,15 @@ NEXUS2gphocs_function () {
 
 grep -v "^[0-9]*\ [0-9]*.*$" ./gphocs_body.txt > ./gphocs_body_fix.txt
 
-cat ./gphocs_top.txt ./gphocs_body_fix.txt > $MY_NEXUS_BASENAME.gphocs
+sed 's/locus/'$CR'locus/g' ./gphocs_body_fix.txt > ./gphocs_body_fix2.txt
+
+cat ./gphocs_top.txt ./gphocs_body_fix2.txt > $MY_NEXUS_BASENAME.gphocs
 
 
 ############ CLEANUP: REMOVE UNNECESSARY FILES
 rm ./gphocs_top.txt
 rm ./gap_threshold.txt
-rm ./gphocs_body.txt ./gphocs_body_fix.txt
+rm ./gphocs_body*
 
 
 }
