@@ -74,7 +74,7 @@ echo "
 ###### Set filetypes as different variables:
 echo "INFO      | $(date) | Examining current directory, setting variables... "
 MY_WORKING_DIR="$(pwd)"
-CR=$(printf '\r')			## Best way to facilitate adding carriage returns using sed (see next)...
+CR=$(printf '\r')			## Best way to facilitate adding carriage returns using sed...
 calc () {
    	bc -l <<< "$@"
 }
