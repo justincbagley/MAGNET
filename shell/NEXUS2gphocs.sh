@@ -72,7 +72,7 @@ echo "
 
 ############ STEP #1: SETUP VARIABLES
 ###### Set filetypes as different variables:
-echo "##########  STATUS: Examining current directory, setting variables... "
+echo "INFO      | $(date) | Examining current directory, setting variables... "
 MY_WORKING_DIR="$(pwd)"
 CR=$(printf '\r')			## Best way to facilitate adding carriage returns using sed (see next)...
 calc () {
@@ -174,6 +174,9 @@ rm ./gphocs_top.txt
 rm ./gap_threshold.txt
 rm ./gphocs_body.txt
 
+echo "INFO      | $(date) | Successfully created a '.gphocs' input file from the existing NEXUS file... "
+echo "INFO      | $(date) | Bye.
+"
 #
 #
 #
