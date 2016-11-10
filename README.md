@@ -9,11 +9,11 @@ All code within the PIrANHA repository, including MAGNET v0.1.3 pipeline code, i
 CITATION
 -------
 
-If you use scripts from this repository as part of your published research, then I require you to cite the PIrANHA repository and/or MAGNET package as follows (I will put everything in Zenodo and get doi's in the near future):
+If you use scripts from this repository as part of your published research, then I require you to cite the PIrANHA repository and/or MAGNET package as follows (also see DOI information below):
 
   Bagley, J.C. 2016. PIrANHA. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
   
-  Bagley, J.C. 2016. MAGNET. GitHub package, Available at: http://github.com/justincbagley/MAGNET.
+  Bagley, J.C. 2016. MAGNET. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
 
 Alternatively, please provide the following link to this software program in your manuscript:
 
@@ -24,6 +24,13 @@ Alternatively, please provide the following link to this software program in you
 	the MAGNET pipeline in the PIrANHA github repository (http://github.com/justincbagley/MAGNET).
 	Each RAxML run specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny
 	and bootstrap proportions from 500 bootstrap pseudoreplicates."
+
+DOI
+-------
+
+The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
+  
+  Bagley, J.C. 2016. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
 
 INTRODUCTION
 -------
