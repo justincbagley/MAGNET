@@ -1,10 +1,10 @@
-# MAGNET (MAny GeNE Trees) v0.1.2:deciduous_tree::deciduous_tree::deciduous_tree:
+# MAGNET (MAny GeNE Trees) v0.1.3:deciduous_tree::deciduous_tree::deciduous_tree:
 Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
 
 LICENSE
 -------
 
-All code within the PIrANHA repository, including MAGNET v0.1.2 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
+All code within the PIrANHA repository, including MAGNET v0.1.3 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
 
 CITATION
 -------
@@ -45,7 +45,7 @@ HARDWARE AND SETUP
 SOFTWARE DEPENDENCIES
 -------
 
-MAGNET v0.1.2 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisk marks preceding those already included in the MAGNET distribution:
+MAGNET v0.1.3 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisk marks preceding those already included in the MAGNET distribution:
 
 - Perl (available at: https://www.perl.org/get.html).
 - \*Nayoki Takebayashi's file conversion Perl scripts (available at: http://raven.iab.alaska.edu/~ntakebay/teaching/programming/perl-scripts/perl-scripts.html).
@@ -193,5 +193,5 @@ REFERENCES
 - Peterson BK, Weber JN, Kay EH, Fisher HS, Hoekstra HE (2012) Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species. PLoS One, 7, e37135.
 
 
-August 29, 2016
-Justin C. Bagley, Brasília, DF, Brazil
+November 10, 2016
+Justin C. Bagley, Tuscaloosa, AL, USA
