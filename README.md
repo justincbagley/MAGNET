@@ -79,7 +79,7 @@ After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates 
 USAGE
 -------
 
-Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts. 
+Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./\*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts. 
 
 To get usage info for MAGNET, type the first line blow while in the MAGNET directory, and you will get the output that follows:
 ````
