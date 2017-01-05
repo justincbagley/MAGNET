@@ -73,7 +73,7 @@ After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates 
 Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./\*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts. 
 
 To get usage info for MAGNET, type the first line blow while in the MAGNET directory, and you will get the output that follows:
-````
+```
 ./MAGNET.sh
 
 Usage: ./MAGNET.sh [options] inputNexus
@@ -110,14 +110,14 @@ The following options are available ONLY if you are starting from a NEXUS input 
 	indivMissingData=0 removes all such individuals from each locus; thus, while the input
 	file would have had the same number of individuals across loci, the resulting file could
 	have varying numbers of individuals for different loci.
-````
+```
 
 
 **_IMPORTANT NOTE on NEXUS2gphocs usage:_ In its current form, you must move NEXUS2gphocs.sh (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script.** (This also assumes the target inputNexus is also located in the MAGNET dir.)
 
 To get usage info for NEXUS2gphocs.sh, type the first line blow while in the MAGNET directory, and you will get the output that follows:
 
-````
+```
 ./NEXUS2gphocs.sh
 
 Usage: shell/NEXUS2gphocs.sh [options] inputNexus
@@ -145,33 +145,33 @@ have varying numbers of individuals for different loci.
 
 Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
 'selectSites.pl' in working directory or available from command line (in your path).
-````
+```
 
 **Below I give some examples of how to use the software under the two most common scenarios:**
 
 **SCENARIO 1.** If your data contain very little missing data and, in particular, they contain no individuals with all missing data for a locus, then it should be fine to run MAGNET using the default options (giving no flags) as follows:
-````
+```
 ##--Scenario 1, generic usage:
 ./MAGNET.sh inputNexus
 
 ##--Example:
 cd ~/Downloads/MAGNET-master/
 ./MAGNET.sh example.nex
-````
+```
 **SCENARIO 2.** If your data are relatively lower quality data (e.g. from NGS runs) and you have lots of missing data, including individuals with all missing data for a locus (as is common for RAD tag/SNP data), then RAxML will not run properly under the default MAGNET options. You will likely get up to ~10 messages like "ERROR: Sequence XXXXX consists entirely of undetermined values which will be treated as missing data", follwed by a summary like this: "ERROR: Found 10 sequences that consist entirely of undetermined values, exiting...", and RAxML will quit. The rest of the pipeline will be affected, for example the final summary gene tree file will make no sense because it will simply include a concatenation of all files in the working directory. 
 
 To avoid the above issues caused by large amounts of missing data, you should run MAGNET while **setting the -m flag to 0** (indivMissingData=0) to specify that individuals with missing data are NOT allowed:
-````
+```
 ##--Scenario 2, all params except indivMissingData set to default options:
 ./MAGNET.sh -m0 inputNexus
 
 ##--Example:
 cd ~/Downloads/MAGNET-master/
 ./MAGNET.sh -m0 example.nex
-````
+```
 
 In addition to the above, here are illustrations of the **RAxML options**:
-````
+```
 ##--Scenario 1, GTRCAT model, instead of the default GTRGAMMA model:
 ./MAGNET.sh -rGTRCAT inputNexus
 
@@ -180,7 +180,11 @@ In addition to the above, here are illustrations of the **RAxML options**:
 
 ##--Scenario 2, 0 bootstrap reps per locus:
 ./MAGNET.sh -b0 -m0 inputNexus
-````
+```
+
+## ACKNOWLEDGEMENTS
+
+I thank the Brigham Young University Fulton Supercomputing Lab (FSL) for providing computational resources used during the development of this software.
 
 ## REFERENCES
 
