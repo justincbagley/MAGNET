@@ -4,12 +4,12 @@
 #  __  o  __   __   __  |__   __                                                         #
 # |__) | |  ' (__( |  ) |  ) (__(                                                        # 
 # |                                                                                      #
-#                     MAGNET ~ MAny GeNE Trees v0.1.2, September 2016                    #
+#                      MAGNET ~ MAny GeNE Trees v0.1.3, March 2017                       #
 #   SHELL SCRIPT RUNNING THE MAGNET PIPELINE, WHICH AUTOMATES ESTIMATING ONE MAXIMUM-    #
 #   LIKELIHOOD (ML) GENE TREE IN RAxML FOR EACH OF MANY SNP LOCI (OR MULTILOCUS DATA)    #
-#   Copyright (c)2016 Justin C. Bagley, Universidade de Brasília, Brasília, DF, Brazil.  #
+#   Copyright (c)2017 Justin C. Bagley, Universidade de Brasília, Brasília, DF, Brazil.  #
 #   See the README and license files on GitHub (http://github.com/justincbagley) for     #
-#   further information. Last update: September 7, 2016. For questions, please email     #
+#   further information. Last update: March 5, 2017. For questions, please email         #
 #   jcbagley@unb.br.                                                                     #
 ##########################################################################################
 
@@ -20,43 +20,75 @@ MY_RAXML_MODEL=GTRGAMMA
 MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
-## PARSE THE OPTIONS ##
-while getopts 'b:r:g:m:' opt ; do
-  case $opt in
-    b) MY_NUM_BOOTREPS=$OPTARG ;;
-    r) MY_RAXML_MODEL=$OPTARG ;;
-    g) MY_GAP_THRESHOLD=$OPTARG ;;
-    m) MY_INDIV_MISSING_DATA=$OPTARG ;;
-  esac
-done
+############ CREATE USAGE & HELP TEXTS
+Usage="Usage: $(basename "$0") [Help: -h help H] [Options: -b r g m] inputNexus 
+ ## Help:
+  -h   help text (also: -help)
+  -H   verbose help text (also: -Help)
 
-## SKIP OVER THE PROCESSED OPTIONS ##
-shift $((OPTIND-1)) 
-# Check for mandatory positional parameters
-if [ $# -lt 1 ]; then
-  echo "
-Usage: $0 [options] inputNexus
-  "
-  echo "Options: -b numBootstraps (def: $MY_NUM_BOOTREPS) | -r raxmlModel \
-(def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI) | -g gapThreshold (def: \
-$MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 individuals; takes float \
-proportion value) | -m indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+ ## Options:
+  -b   numBootstraps (def: $MY_NUM_BOOTREPS) RAxML bootstrap pseudoreplicates
+  -r   raxmlModel (def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI)
+  -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
+       individuals; takes float proportion value)
+  -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
-Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
-a separate phylip-formatted alignment file, and sets up and runs RAxML to infer gene trees 
-for each locus. If a NEXUS datafile is supplied, it is converted into G-PhoCS format (Gronau 
-et al. 2011). Sequence names may not include hyphen characters, or there will be issues. 
-For info on various dependencies, see 'README.md' file in the distribution folder; however,
-it is key that the dependencies are available from the command line interface. 
+Reads in a single G-PhoCS 
+ OVERVIEW
+ Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
+ a separate phylip-formatted alignment file, and sets up and runs RAxML (Stamatakis 2014) to 
+ infer gene trees for each locus. If a NEXUS datafile is supplied, it is converted into 
+ G-PhoCS format (Gronau et al. 2011). Sequence names may not include hyphen characters, or 
+ there will be issues. For info on various dependencies, see 'README.md' file in the 
+ distribution folder; however, it is key that the dependencies are available from the command 
+ line interface. 
 
-The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
-the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
+ CITATION
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://github.com/justincbagley/MAGNET>.
+ or
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://doi.org/10.5281/zenodo.166024>.
 
-The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
-and at present it is not possible to vary the model across loci. If you want to use HKY
-or K80, you will need to manually change the 'RAxMLRunner.sh' section of this script.
+ REFERENCES
+ Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human 
+	demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
+ Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
+	large phylogenies. Bioinformatics, 30, 1312-1313.
+"
 
-The following options are available ONLY if you are starting from a NEXUS input file:
+
+verboseHelp="Usage: $(basename "$0") [Help: -h help H] [Options: -b r g m] inputNexus 
+ ## Help:
+  -h   help text (also: -help)
+  -H   verbose help text (also: -Help)
+
+ ## Options:
+  -b   numBootstraps (def: $MY_NUM_BOOTREPS) RAxML bootstrap pseudoreplicates
+  -r   raxmlModel (def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI)
+  -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
+       individuals; takes float proportion value)
+  -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+
+Reads in a single G-PhoCS 
+ OVERVIEW
+ Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
+ a separate phylip-formatted alignment file, and sets up and runs RAxML (Stamatakis 2014) to 
+ infer gene trees for each locus. If a NEXUS datafile is supplied, it is converted into 
+ G-PhoCS format (Gronau et al. 2011). Sequence names may not include hyphen characters, or 
+ there will be issues. For info on various dependencies, see 'README.md' file in the 
+ distribution folder; however, it is key that the dependencies are available from the command 
+ line interface. 
+
+ DETAILS
+ The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
+ the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
+
+ The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
+ and at present it is not possible to vary the model across loci. If you want to use HKY
+ or K80, you will need to manually change the 'RAxMLRunner.sh' section of this script.
+
+ The following options are available **ONLY** if you are starting from a NEXUS input file:
 
 	The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
 	the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
@@ -72,18 +104,60 @@ The following options are available ONLY if you are starting from a NEXUS input 
 	indivMissingData=0 removes all such individuals from each locus; thus, while the input
 	file would have had the same number of individuals across loci, the resulting file could
 	have varying numbers of individuals for different loci.
+
+ CITATION
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://github.com/justincbagley/MAGNET>.
+ or
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://doi.org/10.5281/zenodo.166024>.
+
+ REFERENCES
+ Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human 
+	demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
+ Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
+	large phylogenies. Bioinformatics, 30, 1312-1313.
 "
 
+
+############ PARSE THE OPTIONS
+while getopts 'h:H:b:r:g:m:' opt ; do
+  case $opt in
+## Help texts:
+	h) echo "$Usage"
+       exit ;;
+	H) echo "$verboseHelp"
+       exit ;;
+
+## RAxML and datafile options:
+    b) MY_NUM_BOOTREPS=$OPTARG ;;
+    r) MY_RAXML_MODEL=$OPTARG ;;
+    g) MY_GAP_THRESHOLD=$OPTARG ;;
+    m) MY_INDIV_MISSING_DATA=$OPTARG ;;
+
+## Missing and illegal options:
+    :) printf "Missing argument for -%s\n" "$OPTARG" >&2
+       echo "$Usage" >&2
+       exit 1 ;;
+   \?) printf "Illegal option: -%s\n" "$OPTARG" >&2
+       echo "$Usage" >&2
+       exit 1 ;;
+  esac
+done
+
+############ SKIP OVER THE PROCESSED OPTIONS
+shift $((OPTIND-1)) 
+# Check for mandatory positional parameters
+if [ $# -lt 1 ]; then
+echo "$Usage"
   exit 1
 fi
 MY_NEXUS="$1"
 
 
-
-
 echo "
 ##########################################################################################
-#                     MAGNET ~ MAny GeNE Trees v0.1.2, September 2016                    #
+#                      MAGNET ~ MAny GeNE Trees v0.1.3, March 2017                       #
 ##########################################################################################
 "
 
@@ -92,7 +166,8 @@ echo "INFO      | $(date) | Starting MAGNET pipeline... "
 echo "INFO      | $(date) | STEP #1: SETUP. "
 ###### Set paths and filetypes as different variables:
 	MY_WORKING_DIR="$(pwd)"
-	echo "INFO      | $(date) |          Setting working directory to: $MY_WORKING_DIR "
+	echo "INFO      | $(date) |          Setting working directory to: "
+	echo "$MY_WORKING_DIR "	
 	CR=$(printf '\r')
 	calc () {
 	   	bc -l <<< "$@"
