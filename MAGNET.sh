@@ -33,7 +33,6 @@ Usage="Usage: $(basename "$0") [Help: -h help H] [Options: -b r g m] inputNexus
        individuals; takes float proportion value)
   -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
-Reads in a single G-PhoCS 
  OVERVIEW
  Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
  a separate phylip-formatted alignment file, and sets up and runs RAxML (Stamatakis 2014) to 
@@ -70,7 +69,6 @@ verboseHelp="Usage: $(basename "$0") [Help: -h help H] [Options: -b r g m] input
        individuals; takes float proportion value)
   -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
-Reads in a single G-PhoCS 
  OVERVIEW
  Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
  a separate phylip-formatted alignment file, and sets up and runs RAxML (Stamatakis 2014) to 
