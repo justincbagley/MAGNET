@@ -4,12 +4,12 @@
 #  __  o  __   __   __  |__   __                                                         #
 # |__) | |  ' (__( |  ) |  ) (__(                                                        # 
 # |                                                                                      #
-#                            NEXUS2gphocs v1.1, August 2016                              #
+#                             NEXUS2gphocs v1.2, March 2017                              #
 #   SHELL SCRIPT FOR CONVERTING PARTITIONED NEXUS FILE INTO G-PhoCS FORMAT FOR MAGNET    #
 #   PIPELINE                                                                             #
-#   Copyright (c)2016 Justin C. Bagley, Universidade de Brasília, Brasília, DF, Brazil.  #
+#   Copyright (c)2017 Justin C. Bagley, Universidade de Brasília, Brasília, DF, Brazil.  #
 #   See the README and license files on GitHub (http://github.com/justincbagley) for     #
-#   further information. Last update: August 28, 2016. For questions, please email       #
+#   further information. Last update: March 5, 2017. For questions, please email       #
 #   jcbagley@unb.br.                                                                     #
 ##########################################################################################
 
@@ -18,47 +18,76 @@
 MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
-## PARSE THE OPTIONS ##
+############ CREATE USAGE & HELP TEXTS
+Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -b r g m] inputNexus 
+ ## Help:
+  -h   help text (also: -help)
+  -H   verbose help text (also: -Help)
+
+ ## Options:
+  -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
+       individuals; takes float proportion value)
+  -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+
+ OVERVIEW
+ Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
+ (Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
+ issues. For best results, update to R v3.3.1 or higher.
+
+ The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
+ the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
+ If no gap threshold is specified, all sites with gaps are removed by default. If end goal
+ is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
+ However, if the next step in your pipeline involves converting from .gphocs to other data 
+ formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
+ format for RAxML). 
+
+ The -m flag allows users to choose their level of tolerance for individuals with missing
+ data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
+ missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
+ indivMissingData=0 removes all such individuals from each locus; thus, while the input
+ file would have had the same number of individuals across loci, the resulting file could
+ have varying numbers of individuals for different loci.
+
+ Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
+ 'selectSites.pl' in working directory or available from command line (in your path)."
+
+ CITATION
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://github.com/justincbagley/MAGNET>.
+ or
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://doi.org/10.5281/zenodo.166024>.
+"
+
+############ PARSE THE OPTIONS
 while getopts 'g:m:' opt ; do
   case $opt in
+## Help texts:
+	h) echo "$Usage"
+       exit ;;
+	H) echo "$verboseHelp"
+       exit ;;
+
+## Datafile options:
     g) MY_GAP_THRESHOLD=$OPTARG ;;
     m) MY_INDIV_MISSING_DATA=$OPTARG ;;
+
+## Missing and illegal options:
+    :) printf "Missing argument for -%s\n" "$OPTARG" >&2
+       echo "$Usage" >&2
+       exit 1 ;;
+   \?) printf "Illegal option: -%s\n" "$OPTARG" >&2
+       echo "$Usage" >&2
+       exit 1 ;;
   esac
 done
 
-## SKIP OVER THE PROCESSED OPTIONS ##
+############ SKIP OVER THE PROCESSED OPTIONS
 shift $((OPTIND-1)) 
 # Check for mandatory positional parameters
 if [ $# -lt 1 ]; then
-  echo "
-Usage: $0 [options] inputNexus
-  "
-  echo "Options: -g gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed \
-unless >1000 individuals; takes float proportion value) | -m indivMissingData (def: \
-$MY_INDIV_MISSING_DATA=allowed; 0=removed)
-
-Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
-(Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
-issues. For best results, update to R v3.3.1 or higher.
-
-The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
-the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
-If no gap threshold is specified, all sites with gaps are removed by default. If end goal
-is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
-However, if the next step in your pipeline involves converting from .gphocs to other data 
-formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
-format for RAxML). 
-
-The -m flag allows users to choose their level of tolerance for individuals with missing
-data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
-missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
-indivMissingData=0 removes all such individuals from each locus; thus, while the input
-file would have had the same number of individuals across loci, the resulting file could
-have varying numbers of individuals for different loci.
-
-Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
-'selectSites.pl' in working directory or available from command line (in your path)."
-
+echo "$Usage"
   exit 1
 fi
 MY_NEXUS="$1"
@@ -66,7 +95,7 @@ MY_NEXUS="$1"
 
 echo "
 ##########################################################################################
-#                           NEXUS2gphocs v1.1, August 2016                               #
+#                            NEXUS2gphocs v1.2, March 2017                               #
 ##########################################################################################
 "
 
