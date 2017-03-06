@@ -1,17 +1,17 @@
-# MAGNET (MAny GeNE Trees) v0.1.3:deciduous_tree::deciduous_tree::deciduous_tree:
+# MAGNET (MAny GeNE Trees) v0.1.4  :deciduous_tree::deciduous_tree::deciduous_tree:
 Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic SNP data)
 
 ## LICENSE
 
-All code within the PIrANHA repository, including MAGNET v0.1.3 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
+All code within the PIrANHA repository, including MAGNET v0.1.4 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
 
 ## CITATION
 
 If you use scripts from this repository as part of your published research, then I require you to cite the PIrANHA repository and/or MAGNET package as follows (also see DOI information below):
 
-  Bagley, J.C. 2016. PIrANHA. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
+  Bagley, J.C. 2017. PIrANHA. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
   
-  Bagley, J.C. 2016. MAGNET. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
+  Bagley, J.C. 2017. MAGNET. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
 
 Alternatively, please provide the following link to this software program in your manuscript:
 
@@ -27,7 +27,7 @@ Alternatively, please provide the following link to this software program in you
 
 The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
   
-  Bagley, J.C. 2016. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
+  Bagley, J.C. 2017. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
 
 ## INTRODUCTION
 
@@ -46,7 +46,7 @@ Despite the importance of gene trees in species tree and network inference, few 
 
 ## SOFTWARE DEPENDENCIES
 
-MAGNET v0.1.3 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included in the MAGNET distribution:
+MAGNET v0.1.4 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included in the MAGNET distribution:
 
 - Perl (available at: https://www.perl.org/get.html).
 - \*Nayoki Takebayashi's file conversion Perl scripts (available at: http://raven.iab.alaska.edu/~ntakebay/teaching/programming/perl-scripts/perl-scripts.html).
@@ -70,31 +70,39 @@ After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates 
 
 ## USAGE
 
-Additional input file and usage info is available in the usage statement, accessed by executing either the main MAGNET script or the NEXUS2gphocs script alone, with no input file. The basic usage is generally of the form "./\*.sh [options] input_file". Here, I illustrate how to get usage info for the shell scripts. 
-
-To get usage info for MAGNET, type the first line blow while in the MAGNET directory, and you will get the output that follows:
+Additional input file and usage info is available in the usage or help texts. To get regular usage info for MAGNET, type ```$ ./MAGNET.sh```, ```$ ./MAGNET.sh -h .```, or ```./MAGNET.sh -help``` while in the MAGNET directory. However, it is more useful (particularly when running for the first time) to get _verbose usage info_ for MAGNET, including detailed descriptions of each option; do this by typing ```$ ./MAGNET.sh -H .``` or ```./MAGNET.sh -Help``` (capital "H" flag) at the command line while in the MAGNET directory. The verbose usage text is as follows:
 ```
-./MAGNET.sh
+$ ./MAGNET.sh
+Usage: MAGNET.sh [Help: -h help H Help] [Options: -b r g m] inputNexus 
+ ## Help:
+  -h   help text (also: -help)
+  -H   verbose help text (also: -Help)
 
-Usage: ./MAGNET.sh [options] inputNexus
-  
-Options: -b numBootstraps (def: 100) | -r raxmlModel (def: GTRGAMMA; other: GTRCAT) | -g gapThreshold (def: 0.001=essentially zero gaps allowed unless >1000 individuals; takes float proportion value) | -m indivMissingData (def: 1=allowed; 0=removed)
+ ## Options:
+  -b   numBootstraps (def: 100) RAxML bootstrap pseudoreplicates
+  -r   raxmlModel (def: GTRGAMMA; other: GTRGAMMAI, GTRCAT, GTRCATI)
+  -g   gapThreshold (def: 0.001=essentially zero gaps allowed unless >1000 
+       individuals; takes float proportion value)
+  -m   indivMissingData (def: 1=allowed; 0=removed)
 
-Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
-a separate phylip-formatted alignment file, and sets up and runs RAxML to infer gene trees 
-for each locus. If a NEXUS datafile is supplied, it is converted into G-PhoCS format (Gronau 
-et al. 2011). Sequence names may not include hyphen characters, or there will be issues. 
-For info on various dependencies, see 'README.md' file in the distribution folder; however,
-it is key that the dependencies are available from the command line interface. 
+ OVERVIEW
+ Reads in a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') datafile, splits each locus into 
+ a separate phylip-formatted alignment file, and sets up and runs RAxML (Stamatakis 2014) to 
+ infer gene trees for each locus. If a NEXUS datafile is supplied, it is converted into 
+ G-PhoCS format (Gronau et al. 2011). Sequence names may not include hyphen characters, or 
+ there will be issues. For info on various dependencies, see 'README.md' file in the 
+ distribution folder; however, it is key that the dependencies are available from the command 
+ line interface. 
 
-The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
-the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
+ DETAILS
+ The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
+ the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
 
-The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
-and at present it is not possible to vary the model across loci. If you want to use HKY
-or K80, you will need to manually change the 'RAxMLRunner.sh' section of this script.
+ The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
+ and at present it is not possible to vary the model across loci. If you want to use HKY
+ or K80, you will need to manually change the 'RAxMLRunner.sh' section of this script.
 
-The following options are available ONLY if you are starting from a NEXUS input file:
+ The following options are available **ONLY** if you are starting from a NEXUS input file:
 
 	The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
 	the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
@@ -110,8 +118,20 @@ The following options are available ONLY if you are starting from a NEXUS input 
 	indivMissingData=0 removes all such individuals from each locus; thus, while the input
 	file would have had the same number of individuals across loci, the resulting file could
 	have varying numbers of individuals for different loci.
-```
 
+ CITATION
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://github.com/justincbagley/MAGNET>.
+ or
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://doi.org/10.5281/zenodo.166024>.
+
+ REFERENCES
+ Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human 
+	demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
+ Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
+	large phylogenies. Bioinformatics, 30, 1312-1313.
+```
 
 **_IMPORTANT NOTE on NEXUS2gphocs usage:_ In its current form, you must move NEXUS2gphocs.sh (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script.** (This also assumes the target inputNexus is also located in the MAGNET dir.)
 
@@ -119,32 +139,45 @@ To get usage info for NEXUS2gphocs.sh, type the first line blow while in the MAG
 
 ```
 ./NEXUS2gphocs.sh
+Usage="Usage: NEXUS2gphocs.sh [Help: -h help H Help] [Options: -b r g m] inputNexus 
+ ## Help:
+  -h   help text (also: -help)
+  -H   verbose help text (also: -Help)
 
-Usage: shell/NEXUS2gphocs.sh [options] inputNexus
-  
-Options: -g gapThreshold (def: 0=zero gaps allowed; takes float proportion value) | -m indivMissingData (def: 1=allowed; 0=removed)
+ ## Options:
+  -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
+       individuals; takes float proportion value)
+  -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
 
-Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
-(Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
-issues. For best results, update to R v3.3.1 or higher.
+ OVERVIEW
+ Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
+ (Gronau et al. 2011). Sequence names may not include hyphen characters, or there will be 
+ issues. For best results, update to R v3.3.1 or higher.
 
-The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
-the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
-If no gap threshold is specified, all sites with gaps are removed by default. If end goal
-is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
-However, if the next step in your pipeline involves converting from .gphocs to other data 
-formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
-format for RAxML). 
+ The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
+ the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
+ If no gap threshold is specified, all sites with gaps are removed by default. If end goal
+ is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
+ However, if the next step in your pipeline involves converting from .gphocs to other data 
+ formats, you will likely want to set gapThreshold=1 (e.g. before converting to phylip 
+ format for RAxML). 
 
-The -m flag allows users to choose their level of tolerance for individuals with missing
-data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
-missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
-indivMissingData=0 removes all such individuals from each locus; thus, while the input
-file would have had the same number of individuals across loci, the resulting file could
-have varying numbers of individuals for different loci.
+ The -m flag allows users to choose their level of tolerance for individuals with missing
+ data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
+ missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
+ indivMissingData=0 removes all such individuals from each locus; thus, while the input
+ file would have had the same number of individuals across loci, the resulting file could
+ have varying numbers of individuals for different loci.
 
-Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
-'selectSites.pl' in working directory or available from command line (in your path).
+ Dependencies: Perl; R; and Naoki Takebayashi Perl scripts 'fasta2phylip.pl' and 
+ 'selectSites.pl' in working directory or available from command line (in your path)."
+
+ CITATION
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://github.com/justincbagley/MAGNET>.
+ or
+ Bagley, J.C. 2017. MAGNET. GitHub package, Available at: 
+	<http://doi.org/10.5281/zenodo.166024>.
 ```
 
 **Below I give some examples of how to use the software under the two most common scenarios:**
@@ -198,5 +231,5 @@ I thank the Brigham Young University Fulton Supercomputing Lab (FSL) for providi
 - Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics, 30.9, 1312-1313.
 
 
-November 11, 2016
+March 5, 2017
 Justin C. Bagley, Tuscaloosa, AL, USA
