@@ -9,7 +9,7 @@
 #   LIKELIHOOD (ML) GENE TREE IN RAxML FOR EACH OF MANY SNP LOCI (OR MULTILOCUS DATA)    #
 #   Copyright (c)2017 Justin C. Bagley, Universidade de Brasília, Brasília, DF, Brazil.  #
 #   See the README and license files on GitHub (http://github.com/justincbagley) for     #
-#   further information. Last update: March 14, 2017. For questions, please email         #
+#   further information. Last update: March 14, 2017. For questions, please email        #
 #   jcbagley@unb.br.                                                                     #
 ##########################################################################################
 
