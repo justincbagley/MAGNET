@@ -63,7 +63,7 @@ Users must install all software not included in MAGNET, and ensure that it is av
 
 MAGNET assumes that you are starting from multilocus DNA sequence data in a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs", or in NEXUS format with the extension ".nex". For genomic data such as RAD tags or other SNP data (in sequence format) derived from genotyping-by-sequencing (GBS)-type methods, it is recommended that the user assemble the data, call SNPs, and output SNP sequence data files in various formats including .gphocs format in pyRAD or ipyrad (Eaton 2014) prior to using MAGNET. However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. An example NEXUS file "example.nex" is included in the distribution.
 
-Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from .gphocs to NEXUS format. However, when doing this, _make sure to follow the usage guidelines below_.
+Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from NEXUS to .gphocs format. However, when doing this, _make sure to follow the usage guidelines below_.
 
 ## PIPELINE
 
