@@ -22,9 +22,9 @@ Alternatively, please provide the following link to this software program in you
   
 **Example citations using the above URL:** 
 	"We estimated a gene tree for each RAD locus in RAxML v8 (Stamatakis 2014) using 
-	the MAGNET v0.1.5 pipeline in the PIrANHA repository (http://github.com/justincbagley/MAGNET).
-	Each RAxML run specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny
-	and bootstrap proportions from 500 bootstrap pseudoreplicates."
+	the MAGNET v0.1.5 pipeline (http://github.com/justincbagley/MAGNET). Each RAxML run
+	specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny and
+	bootstrap proportions from 500 bootstrap pseudoreplicates."
 
 ## DOI
 
@@ -203,5 +203,5 @@ I gratefully acknowledge Nayoki Takebayashi, who wrote and freely provided some 
 - Vachaspati P, Warnow T (2015) ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics, 16(Suppl 10):S3.
 
 
-July 22, 2017
+August 20, 2017
 Justin C. Bagley, Richmond, VA, USA
