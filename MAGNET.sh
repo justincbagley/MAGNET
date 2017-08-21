@@ -476,9 +476,6 @@ echo "INFO      | $(date) | STEP #6: RAxML POST-PROCESSING. "
 	##--Assign gene tree list to variable
 	MY_GENE_TREE_LIST="$(cat ./geneTrees.list)"
 
-	##--Make list of run folders that corresponds to order in geneTrees.list file:
-	MY_RUN_FOLDERS="$(echo $MY_GENE_TREE_LIST | sed 's/\/[A-Za-z.\_\-]*//g')"
-
 	############ ORGANIZE GENE TREES INTO ONE LOCATION
 	##--Place all inferred gene trees into a single "gene_trees" folder in the current
 	##--working directory. However, all the gene tree files have the same name. So, in order
@@ -514,10 +511,6 @@ echo "INFO      | $(date) | STEP #6: RAxML POST-PROCESSING. "
 
 	##--Assign bootstrap tree list to variable
 	MY_BOOT_TREE_LIST="$(cat ./bootTrees.list)"
-
-	##--Make list of run folders that corresponds to order in bootTrees.list file:
-	MY_RUN_FOLDERS="$(echo $MY_BOOT_TREE_LIST | sed 's/\/[A-Za-z.\_\-]*//g')"
-
 
 	############ ORGANIZE BOOTSTRAP TREES INTO ONE LOCATION
 	##--Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
@@ -655,9 +648,6 @@ echo "INFO      | $(date) | STEP #5: RAxML POST-PROCESSING. "
 	##--Assign gene tree list to variable
 	MY_GENE_TREE_LIST="$(cat ./geneTrees.list)"
 
-	##--Make list of run folders that corresponds to order in geneTrees.list file:
-	MY_RUN_FOLDERS="$(echo $MY_GENE_TREE_LIST | sed 's/\/[A-Za-z.\_\-]*//g')"
-
 	############ ORGANIZE GENE TREES INTO ONE LOCATION
 	##--Place all inferred gene trees into a single "gene_trees" folder in the current
 	##--working directory. However, all the gene tree files have the same name. So, in order
@@ -693,10 +683,6 @@ echo "INFO      | $(date) | STEP #5: RAxML POST-PROCESSING. "
 
 	##--Assign bootstrap tree list to variable
 	MY_BOOT_TREE_LIST="$(cat ./bootTrees.list)"
-
-	##--Make list of run folders that corresponds to order in bootTrees.list file:
-	MY_RUN_FOLDERS="$(echo $MY_BOOT_TREE_LIST | sed 's/\/[A-Za-z.\_\-]*//g')"
-
 
 	############ ORGANIZE BOOTSTRAP TREES INTO ONE LOCATION
 	##--Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
