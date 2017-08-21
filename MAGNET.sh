@@ -204,7 +204,7 @@ if [ $# -lt 1 ]; then
 echo "$Usage"
   exit 1
 fi
-MY_NEXUS="$1"
+## MY_NEXUS="$1"
 
 
 echo "
@@ -212,6 +212,13 @@ echo "
 #                      MAGNET ~ MAny GeNE Trees v0.1.5, August 2017                      #
 ##########################################################################################
 "
+
+############################## IF -f 1: SINGLE FILE RUN ##################################
+##########################################################################################
+
+#######
+if [[ "$STARTING_FILE_TYPE" = "1" ]]; then
+MY_NEXUS="$1"
 
 ######################################## START ###########################################
 echo "INFO      | $(date) | Starting MAGNET pipeline... "
@@ -230,13 +237,6 @@ echo "INFO      | $(date) | STEP #2: INPUT (SINGLE NEXUS/G-PhoCS FILE, OR MULTIP
 echo "INFO      | $(date) |          For -f 1 or -f 2f '.gphocs' input file present, continue; else convert NEXUS file to "
 echo "INFO      | $(date) |          G-PhoCS format using NEXUS2gphocs code. If -f 3, then run multiple Phylip files in  "
 echo "INFO      | $(date) |          RAxML."
-
-############################## IF -f 1: SINGLE FILE RUN ##################################
-##########################################################################################
-
-#######
-if [[ "$STARTING_FILE_TYPE" = "1" ]]; then
-
 shopt -s nullglob
 if [[ -n $(find . -name "*.gphocs" -type f) ]]; then
 	echo "INFO      | $(date) |          Found '.gphocs' input file... "
@@ -555,6 +555,25 @@ fi
 ##########################################################################################
 
 if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
+MY_WORKING_DIR="$1"
+
+######################################## START ###########################################
+echo "INFO      | $(date) | Starting MAGNET pipeline... "
+echo "INFO      | $(date) | STEP #1: SETUP. "
+###### Echo working dir read in as mandatory parameter above, then set some variables:
+	echo "INFO      | $(date) |          Setting working directory to: "
+	echo "$MY_WORKING_DIR "	
+	CR=$(printf '\r')
+	calc () {
+	   	bc -l <<< "$@"
+	}
+
+
+echo "INFO      | $(date) | STEP #2: INPUT (SINGLE NEXUS/G-PhoCS FILE, OR MULTIPLE PHYLIP FILES). "
+echo "INFO      | $(date) |          For -f 1 or -f 2f '.gphocs' input file present, continue; else convert NEXUS file to "
+echo "INFO      | $(date) |          G-PhoCS format using NEXUS2gphocs code. If -f 3, then run multiple Phylip files in  "
+echo "INFO      | $(date) |          RAxML."
+
 
 	MY_PHYLIP_ALIGNMENTS=./*.phy		## Assign Phylip-formatted multilocus gene / genomic/SNP / RAD locus sequence alignment files (e.g. output by gphocs2multiPhylip.sh shell script) in run directory to variable.
 
