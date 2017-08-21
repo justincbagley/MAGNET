@@ -9,7 +9,7 @@
 #  (ML) GENE TREE IN RAxML FOR EACH OF MANY LOCI IN A RADseq OR MULTILOCUS DATASET       #
 #  Copyright (c)2017 Justinc C. Bagley, Virginia Commonwealth University, Richmond, VA,  #
 #  USA; Universidade de Brasília, Brasília, DF, Brazil. See README and license on GitHub #
-#  (http://github.com/justincbagley) for further info. Last update: August 20, 2017.     #
+#  (http://github.com/justincbagley) for further info. Last update: August 21, 2017.     #
 #  For questions, please email jcbagley@vcu.edu.                                         #
 ##########################################################################################
 
