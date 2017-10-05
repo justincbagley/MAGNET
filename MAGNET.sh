@@ -92,7 +92,7 @@ verboseHelp="Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [s
        on user's machine
   -b   numBootstraps (def: $MY_NUM_BOOTREPS) RAxML bootstrap pseudoreplicates
   -r   raxmlModel (def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI)
-  -s   simpleModel (def: $MY_SIMPLE_MODEL; other: JC69, K80) specifies simple substitution model
+  -s   simpleModel (def: $MY_SIMPLE_MODEL; other: JC69, K80, HKY85) specifies simple substitution model
        that will override any other model and apply to all DNA partitions
   -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
        individuals; takes float proportion value)
