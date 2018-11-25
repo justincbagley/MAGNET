@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ##########################################################################################
-#                           RAxMLRunChecker v1.0, November 2018                          #
+#                           RAxMLRunChecker v1.1, November 2018                          #
 #  SHELL SCRIPT THAT COUNTS NUMBER OF LOCI/PARTITIONS WITH COMPLETED RAxML RUNS DURING   #
 #  OR AFTER A RUN OF THE MAGNET PIPELINE, AND COLLATES RUN INFORMATION                   #
 #  Copyright ©2018 Justinc C. Bagley. For further information, see README and license    #
