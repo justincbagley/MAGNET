@@ -6,7 +6,7 @@
 #  (ML) GENE TREE IN RAxML FOR EACH OF MANY LOCI IN A RADseq OR MULTILOCUS DATASET       #
 #  Copyright ©2018 Justinc C. Bagley. For further information, see README and license    #
 #  available in the PIrANHA repository (https://github.com/justincbagley/PIrANHA/). Last #
-#  update: November 25, 2018. For questions, please email bagleyj@umsl.edu.              #
+#  update: November 29, 2018. For questions, please email bagleyj@umsl.edu.              #
 ##########################################################################################
 
 ############ SCRIPT OPTIONS
@@ -22,7 +22,7 @@ MY_OUTGROUP=NULL
 MY_OUTPUT_NAME=raxml_out
 
 ############ CREATE USAGE & HELP TEXTS
-Usage="Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputFile or workingDir
+Usage="Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputFile OR workingDir
  ## Help:
   -h   help text (also: -help)
   -H   verbose help text (also: -Help)
