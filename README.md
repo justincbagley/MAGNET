@@ -6,15 +6,15 @@ Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic RA
 
 ## LICENSE
 
-All code within the PIrANHA repository, including MAGNET v0.1.6 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
+All code within the PIrANHA repository, including MAGNET v0.1.9 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
 
 ## CITATION
 
 If you use scripts from this repository as part of your published research, then I require you to cite the PIrANHA repository and/or MAGNET package as follows (also see DOI information below):
 
-  Bagley, J.C. 2017. PIrANHA. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
+  Bagley, J.C. 2019. PIrANHA v0.1.7. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
   
-  Bagley, J.C. 2017. MAGNET v0.1.6. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
+  Bagley, J.C. 2019. MAGNET v0.1.9. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
 
 Alternatively, please provide the following link to this software program in your manuscript:
 
@@ -22,7 +22,7 @@ Alternatively, please provide the following link to this software program in you
   
 **Example citations using the above URL:** 
 	"We estimated a gene tree for each RAD locus in RAxML v8 (Stamatakis 2014) using 
-	the MAGNET v0.1.6 pipeline (http://github.com/justincbagley/MAGNET). Each RAxML run
+	the MAGNET v0.1.9 pipeline (http://github.com/justincbagley/MAGNET). Each RAxML run
 	specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny and
 	bootstrap proportions from 500 bootstrap pseudoreplicates."
 
@@ -30,7 +30,7 @@ Alternatively, please provide the following link to this software program in you
 
 The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
   
-  Bagley, J.C. 2017. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
+  Bagley, J.C. 2019. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
 
 ## INTRODUCTION
 
@@ -49,12 +49,12 @@ Despite the importance of gene trees in species tree and network inference, few 
 
 ## SOFTWARE DEPENDENCIES
 
-MAGNET v0.1.6 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included in the MAGNET distribution:
+MAGNET v0.1.9 is composed of shell, R, and Perl scripts and also calls several software programs; thus, it relies on several software dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included in the MAGNET distribution:
 
 - Perl (available at: https://www.perl.org/get.html).
 - Nayoki Takebayashi's file conversion Perl scripts (available at: http://raven.iab.alaska.edu/~ntakebay/teaching/programming/perl-scripts/perl-scripts.html).
 - Python (available at: https://www.python.org/downloads/).
-- bioscripts.convert v0.4 Python package (available at: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for "NEXUS2gphocs.sh").
+- bioscripts.convert v0.4 Python package (available at: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for ```NEXUS2gphocs.sh```).
 - RAxML, installed and running on local machine (available at: http://sco.h-its.org/exelixis/web/software/raxml/index.html).
 
 Users must install all software not included in MAGNET, and ensure that it is available via the command line on their local machine. On the user's local machine, Perl should be available by simply typing "Perl" at the command line; Python should be available by typing "python" at the command line; and bioscripts.convert package should be available by typing "convbioseq" at the command line. Also, RAxML should be compiled using SSE3 install commands, so that RAxML can be called by simply typing "raxmlHPC-SSE3" on the command line. For detailed instructions for setting up RAxML this way, refer to the newest RAxML user manual (available at: http://sco.h-its.org/exelixis/resource/download/NewManual.pdf).
@@ -63,7 +63,7 @@ Users must install all software not included in MAGNET, and ensure that it is av
 
 MAGNET assumes that you are starting from multilocus DNA sequence data in one of three formats. The *First format* that is supported is that of a single datafile in G-Phocs (Gronau et al. 2011) format, with the extension ".gphocs". The *Second format* that is supported is NEXUS format, with data in a single file having the extension ".nex". For genomic data in aligned sequence format, such as aligned RAD tags (e.g. ddRAD-seq contigs) or other SNP data derived from genotyping-by-sequencing (GBS) methods, the user should assemble the data, call SNPs, and output SNP sequence data files in .gphocs or .nex format prior to running MAGNET. This can easily be done by running pyRAD or ipyrad (Eaton 2014) while calling for output in all formats (\*; you'll get .gphocs and .nex files). 
 
-However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a "NEXUS2gphocs.sh" shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. An example NEXUS file "example.nex" is included in the distribution. Feel free to use the NEXUS2gphocs.sh utility script independently of MAGNET to convert from NEXUS to .gphocs format. However, when doing this, _make sure to follow the usage guidelines below_.
+However, this may not always be possible, and .gphocs format is not yet among the most popular file formats in phylogenomics/population genomics. Thus, I have added a ```NEXUS2gphocs.sh``` shell script utility within MAGNET (in the "shell" folder) that will convert a sequential NEXUS file into .gphocs format for you. An example NEXUS file "example.nex" is included in the distribution. Feel free to use the ```NEXUS2gphocs.sh``` utility script independently of MAGNET to convert from NEXUS to .gphocs format. However, when doing this, _make sure to follow the usage guidelines below_.
 
 The *Third format* that is supported in MAGNET is that of DNA sequence alignments for multiple loci contained in separate PHYLIP files for each locus. 
 
@@ -71,16 +71,18 @@ Users must specify the input fileType with the -f flag. Options are 1 for a sing
 
 ## PIPELINE
 
-Apart from input file conversion steps, the MAGNET pipeline works by calling five different scripts, in series, each designed to conduct a task whose output is processed in the next step of the pipeline. First, the "gphocs2multiPhylip.sh" shell script is used to extract loci from the input file and place each locus in a PHYLIP-formatted file with extension ".phy". Second, a shell script named "MultiRAxMLPrepper.sh" is used to place the .phy files into separate "run folders" and prepare them to be run in RAxML. Third, a script named "RAxMLRunner.sh" is called to run RAxML on the contents of each run folder. In a "clean-up" step, MAGNET moves all .phy files files remaining in the working directory to a new folder, "phylip\_files", which is created within the working directory.
+Apart from input file conversion steps, the MAGNET pipeline works by calling five different scripts, in series, each designed to conduct a task whose output is processed in the next step of the pipeline. First, the ```gphocs2multiPhylip.sh``` shell script is used to extract loci from the input file and place each locus in a PHYLIP-formatted file with extension ".phy". Second, a shell script named ```MultiRAxMLPrepper.sh``` is used to place the .phy files into separate "run folders" and prepare them to be run in RAxML. Third, a script named ```RAxMLRunner.sh``` is called to run RAxML on the contents of each run folder. In a "clean-up" step, MAGNET moves all .phy files files remaining in the working directory to a new folder, "phylip\_files", which is created within the working directory.
 
-After running the MAGNET pipeline, the shell script "getGeneTrees.sh" automates post-processing of the gene trees output by RAxML, including organizing all inferred gene trees into a single "gene\_trees" folder in the working directory, and combining the individual 'best' gene trees resulting from each run into a single file named "besttrees.tre". Also, if bootstrap pseudoreplicates were performed and the bootstrap tree files are detected, then the "getBootTrees.sh" script conducts similar processing on the bootstrap trees for each loucus, which are collated, renamed, and given a list file containing the name of each file. Given the directory of bootstrap trees resulting from a MAGNET run ("bootstrap\_trees") can take up substantial disk space (>200 MB), users may wish to compress this directory to a zip file, for example using ```$ zip -r bootstrap_trees.zip bootstrap_trees/``` at the conclusion of a run.
+After running the MAGNET pipeline, the shell script ```getGeneTrees.sh``` automates post-processing of the gene trees output by RAxML, including organizing all inferred gene trees into a single "gene\_trees" folder in the working directory, and combining the individual 'best' gene trees resulting from each run into a single file named "besttrees.tre". Also, if bootstrap pseudoreplicates were performed and the bootstrap tree files are detected, then the ```getBootTrees.sh``` script conducts similar processing on the bootstrap trees for each loucus, which are collated, renamed, and given a list file containing the name of each file. Given the directory of bootstrap trees resulting from a MAGNET run ("bootstrap\_trees") can take up substantial disk space (>200 MB), users may wish to compress this directory to a zip file, for example using ```$ zip -r bootstrap_trees.zip bootstrap_trees/``` at the conclusion of a run.
+
+A new feature of MAGNET (as of December 2018) is the --resume flag, a long option allowing the user to resume a previous MAGNET run in a working directory where MAGNET was previously run (specified to stdin as workingDir).
 
 ## USAGE
 
 Additional input file and usage information is available in the usage or help texts. To get regular usage info for MAGNET, type ```$ ./MAGNET.sh```, ```$ ./MAGNET.sh -h .```, or ```./MAGNET.sh -help``` while in the MAGNET directory. However, it is more useful (particularly when running for the first time) to get _verbose usage info_ for MAGNET, including detailed descriptions of each option; do this by typing ```$ ./MAGNET.sh -H .``` or ```./MAGNET.sh -Help``` (capital "H" flag) at the command line while in the MAGNET directory. The verbose usage text is as follows:
 ```
-$ ./MAGNET.sh
-Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputFile or workingDir
+$ ./MAGNET.sh -H
+Usage: MAGNET.sh [Help: -h H] [Options: -f e b r s g m o] [Resume: --resume] [stdin:] inputFile or workingDir
  ## Help:
   -h   help text (also: -help)
   -H   verbose help text (also: -Help)
@@ -89,17 +91,21 @@ Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputF
   -f   fileType (def: 1; 1 = single inputFile, 2 = multiple PHYLIP files) starting file
        type; if 1, script expects as stdin a single NEXUS or G-PhoCS inputFile in the
        current directory; if 2, then script expects workingDir with multiple PHYLIP files
-  -e   executable (def: raxmlHPC-SSE3) name of RAxML executable, accessible from command line
+  -e   executable (def: raxml) name of RAxML executable, accessible from command line
        on user's machine
   -b   numBootstraps (def: 100) RAxML bootstrap pseudoreplicates
   -r   raxmlModel (def: GTRGAMMA; other: GTRGAMMAI, GTRCAT, GTRCATI)
-  -s   simpleModel (def: NULL; other: JC69, K80, HKY85) specifies simple substitution model
+  -s   simpleModel (def: NULL; other: JC69, K80) specifies simple substitution model
        that will override any other model and apply to all DNA partitions
   -g   gapThreshold (def: 0.001=essentially zero gaps allowed unless >1000 
        individuals; takes float proportion value)
   -m   indivMissingData (def: 1=allowed; 0=removed)
   -o   outgroup (def: NULL) outgroup given as single taxon name (tip label) or comma-
        separted list
+
+ ## Resume: 
+ --resume   long option allowing the user to resume a previous MAGNET run in the specified
+       workingDir (usually current working directory)
 
  OVERVIEW
  The goal of MAGNET is to infer a maximum-likelihood (ML) gene tree in RAxML for each of 
@@ -116,7 +122,7 @@ Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputF
  user-specified options. Sequence names may not include hyphen characters, or there could be 
  issues. For detailed information on MAGNET and its various dependencies, see 'README.md' file 
  in the distribution folder; however, it is key that the dependencies are available from the 
- command line interface. 
+ command line interface. Among the most important options is the --resume flag (see below).
 
  DETAILS
  The -f flag specifies the starting fileType. If -f 1, then the mandatory input is the name
@@ -161,11 +167,16 @@ Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputF
  manual, as a single name or as a comma-separated list with no spaces between taxon names. 
  The first name in the list is prioritized, e.g. when members of the list are not monophyletic.
 
+ --resume is among the most important options available in MAGNET because it tells the program 
+ to resume a previous run in <workingDir>, including to detect incomplete run folders
+ and run RAxML there without overwriting results from run folders with finished runs. Only
+ takes --resume, not resume or -resume. The default setting is to run without this option.
+ 
  CITATION
- Bagley, J.C. 2017. MAGNET v0.1.6. GitHub package, Available at: 
+ Bagley, J.C. 2019. MAGNET v0.1.9. GitHub package, Available at: 
 	<http://github.com/justincbagley/MAGNET>.
  or
- Bagley, J.C. 2017. MAGNET v0.1.6. GitHub package, Available at: 
+ Bagley, J.C. 2019. MAGNET v0.1.9. GitHub package, Available at: 
 	<http://doi.org/10.5281/zenodo.166024>.
 
  REFERENCES
@@ -173,13 +184,14 @@ Usage: $(basename "$0") [Help: -h H] [Options: -f e b r s g m o] [stdin:] inputF
 	demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
  Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
 	large phylogenies. Bioinformatics, 30, 1312-1313.
+
 ```
 
 ### NOTES ON NEXUS2gphocs USAGE
 
-- You may use NEXUS2gphocs.sh as a standalone script for converting prior to running G-PhoCS on your data. 
-- However, in its current form, you must move NEXUS2gphocs.sh (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script (this assumes the target inputFile is also located in the MAGNET dir). You could also move both scripts into another working directory containing your target inputFile.
-- You can get the usage info for NEXUS2gphocs.sh, in similar fashion to that above, by typing ```./NEXUS2gphocs.sh```, ```./NEXUS2gphocs.sh -h .```, or ```./NEXUS2gphocs.sh -help``` into the command line, and then pressing enter. The NEXUS2gphocs usage text is sufficiently similar to the latter part of the MAGNET usage printed above that it doesn't bear repeating here.
+- You may use ```NEXUS2gphocs.sh``` as a standalone script for converting prior to running G-PhoCS on your data. 
+- However, in its current form, you must move ```NEXUS2gphocs.sh``` (out of the shell folder) _and_ rmGapSites.r (out of the R folder) into the MAGNET directory in order to run NEXUS2gphocs as a standalone script (this assumes the target inputFile is also located in the MAGNET dir). You could also move both scripts into another working directory containing your target inputFile.
+- You can get the usage info for ```NEXUS2gphocs.sh```, in similar fashion to that above, by typing ```./NEXUS2gphocs.sh```, ```./NEXUS2gphocs.sh -h .```, or ```./NEXUS2gphocs.sh -help``` into the command line, and then pressing enter. The ```NEXUS2gphocs``` usage text is sufficiently similar to the latter part of the MAGNET usage printed above that it doesn't bear repeating here.
 
 
 ### USAGE EXAMPLES
@@ -253,5 +265,5 @@ I gratefully acknowledge Nayoki Takebayashi, who wrote and freely provided some 
 - Vachaspati P, Warnow T (2015) ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics, 16(Suppl 10):S3.
 
 
-September 27, 2017
-Justin C. Bagley, Richmond, VA, USA
+February 19, 2019
+Justin C. Bagley, St. Louis, MO, USA
