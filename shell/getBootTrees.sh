@@ -7,7 +7,7 @@
 #                          getBootTrees.sh v0.1.0, August 2017                           #
 #  SHELL SCRIPT FOR COLLATING AND ORGANIZING BOOTSTRAP TREES FROM RAxML RUNS ON MULTIPLE #
 #  INPUT TREE FILES                                                                      #
-#  Copyright (c)2017 Justinc C. Bagley, Virginia Commonwealth University, Richmond, VA,  #
+#  Copyright (c)2019 Justinc C. Bagley, Virginia Commonwealth University, Richmond, VA,  #
 #  USA; Universidade de Brasília, Brasília, DF, Brazil. See README and license on GitHub #
 #  (http://github.com/justincbagley) for further info. Last update: August 20, 2017.     #
 #  For questions, please email jcbagley@vcu.edu.                                         #
