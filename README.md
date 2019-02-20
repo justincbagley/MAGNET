@@ -30,7 +30,7 @@ Alternatively, please provide the following link to this software program in you
 
 The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
   
-  Bagley, J.C. 2019. MAGNET. GitHub package, Available at: http://doi.org/10.5281/zenodo.166024.
+  Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: https://doi.org/10.5281/zenodo.596774.
 
 ## INTRODUCTION
 
