@@ -1,6 +1,6 @@
 #!/bin/sh
 
-###### (c) 2016 Justin C. Bagley, November 9, 2016, at The University of Alabama, 
+###### ©2016 Justin C. Bagley, November 9, 2016, at The University of Alabama, 
 ###### Tuscaloosa, AL.
 
 ###### Starting from a folder containing multiple PHYLIP alignment files (e.g. as generated
