@@ -6,7 +6,7 @@ Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic RA
 
 ## LICENSE
 
-All code within the PIrANHA repository, including MAGNET v0.1.5 pipeline code, is available "AS IS" under a generous GNU license. See the [LICENSE](LICENSE) file for more information.
+All code within the PIrANHA repository, including MAGNET v0.1.5 pipeline code, is available "AS IS" under a generous 3-Clause BSD license. See the [LICENSE](LICENSE) file for more information.
 
 ## CITATION
 
