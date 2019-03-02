@@ -5,6 +5,7 @@
 # |__) | |  ' (__( |  ) |  ) (__(                                                        # 
 # |                                                                                      #
 #                            NEXUS2gphocs v1.3, November 2018                            #
+                                      version="v1.3"
 #  SHELL SCRIPT FOR CONVERTING PARTITIONED NEXUS FILE INTO G-PhoCS FORMAT FOR MAGNET     #
 #  PIPELINE                                                                              #
 #  Copyright ©2019 Justinc C. Bagley. For further information, see README and license    #
@@ -18,7 +19,7 @@ MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
 ############ CREATE USAGE & HELP TEXTS
-Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] inputNexus 
+Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] [stdin:] <inputNexus> 
  ## Help:
   -h   help text (also: -help -H -Help)
 
@@ -57,6 +58,11 @@ Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] inputNexus
  Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: 
 	<https://doi.org/10.5281/zenodo.596774>.
 "
+
+if [[ "$1" == "-v" ]] || [[ "$1" == "--version" ]]; then
+	echo "$(basename $0) ${version}";
+	exit
+fi
 
 ############ PARSE THE OPTIONS
 while getopts 'h:H:g:m:' opt ; do
