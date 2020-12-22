@@ -147,6 +147,7 @@ echo "INFO      | $(date) | - Outgroup taxon, <outgroup> = ${MY_OUTGROUP} "
 echo "INFO      | $(date) | - RAxML output name = ${MY_OUTPUT_NAME} "
 echo "INFO      | $(date) | - Resume switch (--resume) = ${MY_RESUME_SWITCH} "
 echo "INFO      | $(date) | Step #1: Set up workspace and check machine type. "
+
 ############ SET WORKING DIRECTORY AND CHECK MACHINE TYPE
 echoShortPWD
 MY_WORKING_DIR="$(pwd)"
@@ -155,7 +156,6 @@ checkMachineType
 ######
 ## START DEBUG MODE
 if [[ "$MY_DEBUG_MODE_SWITCH" != "0" ]]; then set -xv; fi
-
 
 echo "INFO      | $(date) | Step #2: Input single NEXUS (or G-PhoCS-formatted) file, or multiple PHYLIP files. "
 echo "INFO      | $(date) | For -f 1 or -f 2, if '.gphocs' input file present, continue; else convert NEXUS file "
