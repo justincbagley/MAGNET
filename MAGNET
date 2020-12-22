@@ -176,35 +176,35 @@ fi
 	NEXUS2gphocs_function () {
 
 	############ GET NEXUS FILE & DATA CHARACTERISTICS, CONVERT NEXUS TO FASTA FORMAT
-	##--Extract charset info from sets block at end of NEXUS file: 
+	# Extract charset info from sets block at end of NEXUS file: 
 	MY_NEXUS_CHARSETS="$(egrep "charset|CHARSET" $MY_NEXUS | \
 	awk -F"=" '{print $NF}' | sed 's/\;/\,/g' | \
 	awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' | \
 	sed 's/\,/\,'$CR'/g' | sed 's/^\ //g')" ;
 	
-	##--Count number of loci present in the NEXUS file, based on number of charsets defined.
-	##--Also get corrected count starting from 0 for numbering loci below...
+	# Count number of loci present in the NEXUS file, based on number of charsets defined.
+	# Also get corrected count starting from 0 for numbering loci below...
 	MY_NLOCI="$(echo "$MY_NEXUS_CHARSETS" | wc -l)";
 	MY_CORR_NLOCI="$(calc $MY_NLOCI - 1)";
 	
-	##--This is the base name of the original nexus file, so you have it. This will not work if NEXUS file name is written in all caps, ".NEX", in the file name.
+	# This is the base name of the original nexus file, so you have it. This will not work if NEXUS file name is written in all caps, ".NEX", in the file name.
 	MY_NEXUS_BASENAME="$(echo $MY_NEXUS | sed 's/\.\///g; s/\.nex//g')";
 	
-	##--Convert data file from NEXUS to FASTA format using bioscripts.convert v0.4 Python package:
-	##--However, if alignment is too long (>100,000 bp), then need to convert to FASTA using my 
-	##--script and then wrap to 60 characters with fold function (as suggested at stackexchange
-	##--post URL: https://unix.stackexchange.com/questions/25173/how-can-i-wrap-text-at-a-certain-column-size).
-	##--If this conversion failes because the alignment is too long, then the code to follow 
-	##--will have nothing to work with. So, I am here adding a conditional quit if the FASTA
-	##--file is not generated.
+	# Convert data file from NEXUS to FASTA format using bioscripts.convert v0.4 Python package:
+	# However, if alignment is too long (>100,000 bp), then need to convert to FASTA using my 
+	# script and then wrap to 60 characters with fold function (as suggested at stackexchange
+	# post URL: https://unix.stackexchange.com/questions/25173/how-can-i-wrap-text-at-a-certain-column-size).
+	# If this conversion failes because the alignment is too long, then the code to follow 
+	# will have nothing to work with. So, I am here adding a conditional quit if the FASTA
+	# file is not generated.
 
 	#---------TODO: ADD IF/THEN CONDITIONAL AND MY OWN NEXUS2FASTA SCRIPT HERE!!!!----------#
 
 	convbioseq fasta $MY_NEXUS > "$MY_NEXUS_BASENAME".fasta ;
 	MY_FASTA="$(echo "$MY_NEXUS_BASENAME".fasta | sed 's/\.\///g; s/\.nex//g')";
 	
-	##--The line above creates a file with the name basename.fasta, where basename is the base name of the original .nex file. For example, "hypostomus_str.nex" would be converted to "hypostomus_str.fasta".
-	##--Check to make sure the FASTA was created; if so, echo info, if not, echo warning and quit:
+	# The line above creates a file with the name basename.fasta, where basename is the base name of the original .nex file. For example, "hypostomus_str.nex" would be converted to "hypostomus_str.fasta".
+	# Check to make sure the FASTA was created; if so, echo info, if not, echo warning and quit:
 	if [[ -s "$MY_NEXUS_BASENAME".fasta ]]; then
 		echo "INFO      | $(date) | Input NEXUS was successfully converted to FASTA format. Moving forward... "
 	else
@@ -214,7 +214,7 @@ fi
 	
 	############ PUT COMPONENTS OF ORIGINAL NEXUS FILE AND THE FASTA FILE TOGETHER TO MAKE A
 	############ A G-PhoCS-FORMATTED DATA FILE
-	##--Make top (first line) of the G-Phocs format file, which should have the number of loci on the first line:
+	# Make top (first line) of the G-Phocs format file, which should have the number of loci on the first line:
 	echo "$MY_NLOCI" | sed 's/[\ ]*//g' > gphocs_top.txt ;
 	
 	echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
@@ -231,24 +231,24 @@ fi
 				
 			**/fasta2phylip.pl ./sites.fasta > ./sites.phy ;
 
-			##--Need to make sure there is a space between the tip taxon name (10 characters as output
-			##--by the fasta2phylip.pl Perl script) and the corresponding sequence, for all tips. Use
-			##--a perl search and replace for this:
+			# Need to make sure there is a space between the tip taxon name (10 characters as output
+			# by the fasta2phylip.pl Perl script) and the corresponding sequence, for all tips. Use
+			# a perl search and replace for this:
 
 			perl -p -i -e 's/^([A-Za-z0-9\-\_\ ]{10})/$1\ /g' ./sites.phy ;
 
-				##--If .phy file from NEXUS charset $j has gaps in alignment, then call 
-				##--rmGapSites.R R script to remove all column positions with gaps from
-				##--alignment and output new, gapless PHYLIP file named "./sites_nogaps.phy". 
-				##--If charset $j does not have gaps, go to next line of loop. We do the 
-				##--above by first creating a temporary file containing all lines in
-				##--sites.phy with the gap character:
+				# If .phy file from NEXUS charset $j has gaps in alignment, then call 
+				# rmGapSites.R R script to remove all column positions with gaps from
+				# alignment and output new, gapless PHYLIP file named "./sites_nogaps.phy". 
+				# If charset $j does not have gaps, go to next line of loop. We do the 
+				# above by first creating a temporary file containing all lines in
+				# sites.phy with the gap character:
 				grep -n "-" ./sites.phy > ./gaptest.tmp ;
 				
-				##--Next, we test for nonzero testfile, indicating presence of gaps in $j, 
-				##--using UNIX test operator "-s" (returns true if file size is not zero). 
-				##--If fails, cat sites.phy into file with same name as nogaps file that
-				##--is output by rmGapSites.R and move forward:
+				# Next, we test for nonzero testfile, indicating presence of gaps in $j, 
+				# using UNIX test operator "-s" (returns true if file size is not zero). 
+				# If fails, cat sites.phy into file with same name as nogaps file that
+				# is output by rmGapSites.R and move forward:
 				if [ -s ./gaptest.tmp ]; then
 					echo "Removing column sites in locus"$count" with gaps. "
 					R CMD BATCH **/rmGapSites.R
@@ -355,9 +355,9 @@ if [[ "$MY_RESUME_SWITCH" = "0" ]]; then
 
 	MY_N_PHYLIP_FILES="$(ls $MY_PHYLIP_ALIGNMENTS | wc -l | perl -pe 's/\t//g')";
 
-	##--Loop through the input .phy files and do the following for each file: (A) generate one 
-	##--folder per .phy file with the same name as the file, only minus the extension, then 
-	##--(B) move input .phy file into corresponding folder.
+	# Loop through the input .phy files and do the following for each file: (A) generate one 
+	# folder per .phy file with the same name as the file, only minus the extension, then 
+	# (B) move input .phy file into corresponding folder.
 	(
 		for i in $MY_PHYLIP_ALIGNMENTS; do
 			mkdir "$(ls ${i} | sed 's/\.phy$//g')" ;
@@ -395,12 +395,12 @@ if [[ "$MY_RESUME_SWITCH" = "0" ]]; then
 
 echo "INFO      | $(date) | Step #5: Estimate best maximum-likelihood (ML) gene trees. "
 echo "INFO      | $(date) | Looping through and analyzing contents of each run folder in RAxML... "
-	##--Each folder is set with the locus name corresponding to the locus' position in the
-	##--original .gphocs alignment (which, if output by pyRAD, is simply in the order in which
-	##--the loci were logged to file by pyRAD, no special order). Also, each folder contains
-	##--one .phy file carrying the same basename as the folder name, e.g. "locus0.phy". So,
-	##--all we need to do here is loop through each folder and call RAxML to run using its
-	##--contents as the input file, as follows:
+	# Each folder is set with the locus name corresponding to the locus' position in the
+	# original .gphocs alignment (which, if output by pyRAD, is simply in the order in which
+	# the loci were logged to file by pyRAD, no special order). Also, each folder contains
+	# one .phy file carrying the same basename as the folder name, e.g. "locus0.phy". So,
+	# all we need to do here is loop through each folder and call RAxML to run using its
+	# contents as the input file, as follows:
 	(
 		for i in ./*/; do
 			if [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
@@ -427,14 +427,14 @@ echo "INFO      | $(date) | Looping through and analyzing contents of each run f
 			fi
 		done
 	)
-	##--NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
+	# NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
 
 
-	##--Here: adding loop code to move all .phy files remaining in the current working 
-	##--directory, after Step #3 of the pipeline, to a new folder called "phylip_files". This
-	##--is done here because if the phylip_files folder is present at the end of Step #3,
-	##--then RAxML will also try to estimate a gene tree for .phy file(s) in this folder during
-	##--Step #5 of the pipeline above.
+	# Here: adding loop code to move all .phy files remaining in the current working 
+	# directory, after Step #3 of the pipeline, to a new folder called "phylip_files". This
+	# is done here because if the phylip_files folder is present at the end of Step #3,
+	# then RAxML will also try to estimate a gene tree for .phy file(s) in this folder during
+	# Step #5 of the pipeline above.
 	mkdir ./phylip_files/ ;
 	(
 		for i in $MY_PHYLIP_ALIGNMENTS; do
@@ -479,15 +479,15 @@ echo "INFO      | $(date) | Step #3: Resuming gene tree estimation. Run on remai
 					fi
 			#
 					if [[ "$MY_OUTGROUP" != "NULL" ]] && [[ "$MY_SIMPLE_MODEL" = "NULL" ]]; then
-					"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy -o $MY_OUTGROUP -n $MY_OUTPUT_NAME
+						"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy -o $MY_OUTGROUP -n $MY_OUTPUT_NAME
 					fi
 			#
 					if [[ "$MY_OUTGROUP" = "NULL" ]] && [[ "$MY_SIMPLE_MODEL" != "NULL" ]]; then
-					"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy --$MY_SIMPLE_MODEL -n $MY_OUTPUT_NAME
+						"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy --$MY_SIMPLE_MODEL -n $MY_OUTPUT_NAME
 					fi
 			#
 					if [[ "$MY_OUTGROUP" != "NULL" ]] && [[ "$MY_SIMPLE_MODEL" != "NULL" ]]; then
-					"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy --$MY_SIMPLE_MODEL -o $MY_OUTGROUP -n $MY_OUTPUT_NAME
+						"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# $MY_NUM_BOOTREPS -m $MY_RAXML_MODEL -s ./*.phy --$MY_SIMPLE_MODEL -o $MY_OUTGROUP -n $MY_OUTPUT_NAME
 					fi
 				fi
 				cd ..;
@@ -521,14 +521,14 @@ fi
 
 	ls **/RAxML_bestTree.raxml_out > geneTrees.list ;
 
-	##--Assign gene tree list to variable
+	# Assign gene tree list to variable
 	MY_GENE_TREE_LIST="$(cat ./geneTrees.list)";
 
 	############ ORGANIZE GENE TREES INTO ONE LOCATION
-	##--Place all inferred gene trees into a single "gene_trees" folder in the current
-	##--working directory. However, all the gene tree files have the same name. So, in order
-	##--to do this, we have to give each gene tree a name that matches the corresponding run
-	##--folder, i.e. locus. We can rename each file right after downloading it.
+	# Place all inferred gene trees into a single "gene_trees" folder in the current
+	# working directory. However, all the gene tree files have the same name. So, in order
+	# to do this, we have to give each gene tree a name that matches the corresponding run
+	# folder, i.e. locus. We can rename each file right after downloading it.
 	mkdir ./gene_trees/ ;
 
 	echo "INFO      | $(date) | Copying *ALL* ML gene trees to 'gene_trees' folder in current directory for post-processing..."
@@ -557,14 +557,14 @@ fi
 
 	ls **/RAxML_bootstrap.raxml_out > bootTrees.list ;
 
-	##--Assign bootstrap tree list to variable
+	# Assign bootstrap tree list to variable
 	MY_BOOT_TREE_LIST="$(cat ./bootTrees.list)";
 
 	############ ORGANIZE BOOTSTRAP TREES INTO ONE LOCATION
-	##--Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
-	##--working directory. However, all the boot tree files have the same name. So, in order
-	##--to do this, we have to give each boot tree file a name that matches the corresponding
-	##--run folder, i.e. locus. We can rename each file right after downloading it.
+	# Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
+	# working directory. However, all the boot tree files have the same name. So, in order
+	# to do this, we have to give each boot tree file a name that matches the corresponding
+	# run folder, i.e. locus. We can rename each file right after downloading it.
 	mkdir ./bootstrap_trees ;
 
 	echo "INFO      | $(date) | Copying *ALL* ML bootstrap trees to 'bootstrap_trees' folder in current directory for post-processing..."
@@ -594,7 +594,7 @@ fi
 	echo "INFO      | $(date) | Organizing bipartitions trees (with bootstrap proportion labels) and making final output file containing all bipartitions trees... "
 	ls **/RAxML_bipartitions.raxml_out > bipartTrees.list ;
 
-	##--Assign bootstrap tree list to variable
+	# Assign bootstrap tree list to variable
 	MY_BIPART_TREE_LIST="$(cat ./bipartTrees.list)";
 
 	############ ORGANIZE BIPARTITIONS TREES INTO ONE LOCATION
@@ -647,20 +647,12 @@ echo "INFO      | $(date) | - Outgroup taxon, <outgroup> = ${MY_OUTGROUP} "
 echo "INFO      | $(date) | - RAxML output name = ${MY_OUTPUT_NAME} "
 echo "INFO      | $(date) | - Resume switch (--resume) = ${MY_RESUME_SWITCH} "
 echo "INFO      | $(date) | Step #1: Set up workspace and check machine type. "
+
 ############ SET WORKING DIRECTORY AND CHECK MACHINE TYPE
 USER_SPEC_PATH="$(printf '%q\n' "$(pwd)")";
 echoCDWorkingDir
 MY_WORKING_DIR="$(pwd)"
 checkMachineType
-
-## Set raxml executable name based on machine type:
-if [[ "${machine}" = "Mac" ]]; then
-	MY_RAXML_EXECUTABLE=raxml
-fi
-if [[ "${machine}" = "Linux" ]]; then
-	MY_RAXML_EXECUTABLE=raxmlHPC-SSE3
-fi
-
 
 echo "INFO      | $(date) | Step #2: Input single NEXUS or G-PhoCS file, or multiple PHYLIP files. "
 echo "INFO      | $(date) | For -f 1 or -f 2, if '.gphocs' input file present, continue; else convert NEXUS file "
@@ -679,9 +671,9 @@ echo "INFO      | $(date) | Step #3: Make run folders. "
 
 	MY_N_PHYLIP_FILES="$(ls $MY_PHYLIP_ALIGNMENTS | wc -l | perl -pe 's/\t//g')";
 
-	##--Loop through the input .phy files and do the following for each file: (A) generate one 
-	##--folder per .phy file with the same name as the file, only minus the extension, then 
-	##--(B) move input .phy file into corresponding folder.
+	# Loop through the input .phy files and do the following for each file: (A) generate one 
+	# folder per .phy file with the same name as the file, only minus the extension, then 
+	# (B) move input .phy file into corresponding folder.
 	(
 		for i in $MY_PHYLIP_ALIGNMENTS; do
 			mkdir "$(ls ${i} | sed 's/\.phy$//g')" ;
@@ -718,12 +710,12 @@ if [[ "$MY_RESUME_SWITCH" = "0" ]]; then
 
 echo "INFO      | $(date) | Step #4: Estimate best maximum-likelihood (ML) gene trees. "
 echo "INFO      | $(date) | Looping through and analyzing contents of each run folder in RAxML... "
-	##--Each folder is set with the locus name corresponding to the locus' position in the
-	##--original .gphocs alignment (which, if output by pyRAD, is simply in the order in which
-	##--the loci were logged to file by pyRAD, no special order). Also, each folder contains
-	##--one .phy file carrying the same basename as the folder name, e.g. "locus0.phy". So,
-	##--all we need to do here is loop through each folder and call RAxML to run using its
-	##--contents as the input file, as follows:
+	# Each folder is set with the locus name corresponding to the locus' position in the
+	# original .gphocs alignment (which, if output by pyRAD, is simply in the order in which
+	# the loci were logged to file by pyRAD, no special order). Also, each folder contains
+	# one .phy file carrying the same basename as the folder name, e.g. "locus0.phy". So,
+	# all we need to do here is loop through each folder and call RAxML to run using its
+	# contents as the input file, as follows:
 	(
 		for i in ./*/; do
 			if [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
@@ -752,11 +744,11 @@ echo "INFO      | $(date) | Looping through and analyzing contents of each run f
 	)
 
 
-	##--Here: adding loop code to move all .phy files remaining in the current working 
-	##--directory, after Step #3 of the pipeline, to a new folder called "phylip_files". This
-	##--is done here because if the phylip_files folder is present at the end of Step #3,
-	##--then RAxML will also try to estimate a gene tree for .phy file(s) in this folder during
-	##--Step #5 of the pipeline above.
+	# Here: adding loop code to move all .phy files remaining in the current working 
+	# directory, after Step #3 of the pipeline, to a new folder called "phylip_files". This
+	# is done here because if the phylip_files folder is present at the end of Step #3,
+	# then RAxML will also try to estimate a gene tree for .phy file(s) in this folder during
+	# Step #5 of the pipeline above.
 	mkdir ./phylip_files
 	(
 		for i in $MY_PHYLIP_ALIGNMENTS; do
@@ -823,14 +815,14 @@ fi
 
 	ls **/RAxML_bestTree.raxml_out > geneTrees.list ;
 
-	##--Assign gene tree list to variable
+	# Assign gene tree list to variable
 	MY_GENE_TREE_LIST="$(cat ./geneTrees.list)";
 
 	############ ORGANIZE GENE TREES INTO ONE LOCATION
-	##--Place all inferred gene trees into a single "gene_trees" folder in the current
-	##--working directory. However, all the gene tree files have the same name. So, in order
-	##--to do this, we have to give each gene tree a name that matches the corresponding run
-	##--folder, i.e. locus. We can rename each file right after downloading it.
+	# Place all inferred gene trees into a single "gene_trees" folder in the current
+	# working directory. However, all the gene tree files have the same name. So, in order
+	# to do this, we have to give each gene tree a name that matches the corresponding run
+	# folder, i.e. locus. We can rename each file right after downloading it.
 	mkdir ./gene_trees/ ;
 
 	echo "INFO      | $(date) | Copying *ALL* ML gene trees to 'gene_trees' folder in current directory for post-processing..."
@@ -859,14 +851,14 @@ fi
 
 	ls **/RAxML_bootstrap.raxml_out > bootTrees.list ;
 
-	##--Assign bootstrap tree list to variable
+	# Assign bootstrap tree list to variable
 	MY_BOOT_TREE_LIST="$(cat ./bootTrees.list)";
 
 	############ ORGANIZE BOOTSTRAP TREES INTO ONE LOCATION
-	##--Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
-	##--working directory. However, all the boot tree files have the same name. So, in order
-	##--to do this, we have to give each boot tree file a name that matches the corresponding
-	##--run folder, i.e. locus. We can rename each file right after downloading it.
+	# Place all inferred bootstrap tree files into a single "bootstrap_trees" folder in 
+	# working directory. However, all the boot tree files have the same name. So, in order
+	# to do this, we have to give each boot tree file a name that matches the corresponding
+	# run folder, i.e. locus. We can rename each file right after downloading it.
 	mkdir ./bootstrap_trees/ ;
 
 	echo "INFO      | $(date) | Copying *ALL* ML bootstrap trees to 'bootstrap_trees' folder in current directory for post-processing..."
@@ -896,7 +888,7 @@ fi
 	echo "INFO      | $(date) | Organizing bipartitions trees (with bootstrap proportion labels) and making final output file containing all bipartitions trees... "
 	ls **/RAxML_bipartitions.raxml_out > bipartTrees.list ;
 
-	##--Assign bootstrap tree list to variable
+	# Assign bootstrap tree list to variable
 	MY_BIPART_TREE_LIST="$(cat ./bipartTrees.list)";
 
 	############ ORGANIZE BIPARTITIONS TREES INTO ONE LOCATION
@@ -945,13 +937,6 @@ if [[ "$MY_DEBUG_MODE_SWITCH" != "0" ]]; then set +xv; fi
 }
 
 
-
-############ SCRIPT OPTION DEFAULTS FOR USAGE TEXT:
-MY_RAXML_EXECUTABLE=raxml
-MY_NUM_BOOTREPS=100
-MY_GAP_THRESHOLD=0.001
-MY_RAXML_MODEL=GTRGAMMA
-MY_INDIV_MISSING_DATA=1
 
 ############ CREATE USAGE & HELP TEXTS
 USAGE="
