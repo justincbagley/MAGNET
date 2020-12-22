@@ -157,15 +157,6 @@ checkMachineType
 if [[ "$MY_DEBUG_MODE_SWITCH" != "0" ]]; then set -xv; fi
 
 
-## Set raxml executable name based on machine type:
-if [[ "${machine}" = "Mac" ]]; then
-	MY_RAXML_EXECUTABLE=raxml
-fi
-if [[ "${machine}" = "Linux" ]]; then
-	MY_RAXML_EXECUTABLE=raxmlHPC-SSE3
-fi
-
-
 echo "INFO      | $(date) | Step #2: Input single NEXUS (or G-PhoCS-formatted) file, or multiple PHYLIP files. "
 echo "INFO      | $(date) | For -f 1 or -f 2, if '.gphocs' input file present, continue; else convert NEXUS file "
 echo "INFO      | $(date) | to G-PhoCS format using NEXUS2gphocs code. If -f 3, then run multiple PHYLIP files in  "
@@ -1197,7 +1188,7 @@ if [[ "$1" == "-H" ]] || [[ "$1" == "-Help" ]]; then
 	exit
 fi
 
-if [[ "$1" == "-v" ]] || [[ "$1" == "--version" ]]; then
+if [[ "$1" == "-v" ]] || [[ "$1" == "-V" ]] || [[ "$1" == "--version" ]]; then
 	echo "$(basename "$0") $VERSION";
 	exit
 fi
