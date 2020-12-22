@@ -4,21 +4,33 @@
 
 Shell script pipeline for inferring ML gene trees for many loci (e.g. genomic RAD loci)
 
-**IMPORTANT!
-MAGNET is currently only being actively maintained and developed within [PIrANHA](https://github.com/justincbagley/piranha), where it is at [v1.1.0](https://github.com/justincbagley/piranha/tree/master/bin/MAGNET-1.1.0).** 
-**The present repository contains an earlier standarlone version of the software, MAGNET v0.1.5. This helps users interested _only_ in MAGNET; however, it is strongly recommended that you install the full PIrANHA distribution and request MAGNET updates or bug fixes through the [PIrANHA repo](https://github.com/justincbagley/piranha).**
+## NOTICE
+
+<!--```diff
+! NOTICE !
+```
+><span style="color:red">**IMPORTANT!**</span>
+>-->
+><span style="color:red">**MAGNET is currently only being actively maintained and developed within [PIrANHA](https://github.com/justincbagley/piranha), where it is at [v1.2.0](https://github.com/justincbagley/piranha/tree/master/bin/MAGNET-1.1.0).** 
+>**The present repository will be periodically updated to include a standalone version of the MAGNET software. This helps users interested _only_ in MAGNET; however, it is strongly recommended that you install the full PIrANHA distribution and request MAGNET updates or bug fixes through the [PIrANHA repo](https://github.com/justincbagley/piranha) (e.g. [contact the author](https://github.com/justincbagley/piranha/wiki/6.-Contact), or raise an issue [here](https://github.com/justincbagley/piranha/issues)).**</span>
+>
+<!--![](https://placehold.it/400x90/ff6600/000?text='MAGNET is currently only being actively maintained and develope')
+
+```diff
+! **IMPORTANT MESSAGE!**
+```
+-->
 
 ## LICENSE
 
-All code within the PIrANHA repository, including MAGNET v0.1.5 pipeline code, is available "AS IS" under a generous 3-Clause BSD license. See the [LICENSE](LICENSE) file for more information.
+All code within the PIrANHA repository, including MAGNET v1.2.0 pipeline code, is available "AS IS" under a generous 3-Clause BSD license. See the [LICENSE](LICENSE) file for more information.
 
 ## CITATION
 
 If you use scripts from this repository as part of your published research, then I require you to cite the PIrANHA repository and/or MAGNET package as follows (also see DOI information below):
 
-  Bagley, J.C. 2019. PIrANHA v0.1.7. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
-  
-  Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
+-   Bagley, J.C. 2020. PIrANHA v0.4a4. GitHub repository, Available at: http://github.com/justincbagley/PIrANHA/.
+-   Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: http://github.com/justincbagley/MAGNET. 
 
 Alternatively, please provide the following link to this software program in your manuscript:
 
@@ -26,7 +38,7 @@ Alternatively, please provide the following link to this software program in you
   
 **Example citations using the above URL:** 
 	"We estimated a gene tree for each RAD locus in RAxML v8 (Stamatakis 2014) using 
-	the MAGNET v0.1.5 pipeline (http://github.com/justincbagley/MAGNET). Each RAxML run
+	the MAGNET v1.2.0 pipeline (http://github.com/justincbagley/MAGNET). Each RAxML run
 	specified the GTRGAMMA model and coestimated the maximum-likelihood phylogeny and
 	bootstrap proportions from 500 bootstrap pseudoreplicates."
 
@@ -34,7 +46,7 @@ Alternatively, please provide the following link to this software program in you
 
 The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
   
-  Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: https://doi.org/10.5281/zenodo.596774.
+-   Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: https://doi.org/10.5281/zenodo.596774.
 
 ## INTRODUCTION
 
@@ -50,20 +62,21 @@ Despite the importance of gene trees in species tree and network inference, few 
 
 :thumbsup: No special hardware or setup is necessary, unless the user is interested in estimating gene trees on a remote supercomputing cluster (see below). <!--In that case, the user is referred to the c-MAGNET or "cluster MAGNET" software repository (https://github.com/justincbagley/c-MAGNET/; under development).-->
 
-
 <!--**IMPORTANT NOTE:
-MAGNET is currently only being actively maintained and developed within PIrANHA, where it is at v1.1.0. The present repository contains an independent distribution of an earlier version, MAGNET v0.1.5, which is a standalone version, which is useful for users not interested in installing the full PIrANHA distribution.**
+MAGNET is currently only being actively maintained and developed within PIrANHA, where it is at v1.2.0. The present repository contains an independent distribution of an earlier version, MAGNET v1.2.0, which is a standalone version, which is useful for users not interested in installing the full PIrANHA distribution.**
 -->
 
 ## SOFTWARE DEPENDENCIES
 
-MAGNET v0.1.5 is a software package composed of shell, R, and Perl scripts and also calls several software programs that it relies on as dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included with the MAGNET distribution:
+MAGNET v1.2.0 is a software package composed of `shell`, `R`, and Perl scripts and also calls several software programs that it relies on as dependencies. These dependencies are described in some detail in README files for different scripts in the package. However, here I provide a list of them, with asterisks preceding those already included with the MAGNET distribution:
 
+<!--
 - Perl (available at: https://www.perl.org/get.html).
 - Nayoki Takebayashi's file conversion Perl scripts (available at: http://raven.iab.alaska.edu/~ntakebay/teaching/programming/perl-scripts/perl-scripts.html).
 - Python (available at: https://www.python.org/downloads/).
-- bioscripts.convert v0.4 Python package (available at: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for ```NEXUS2gphocs.sh```).
-- RAxML, installed and running on local machine (available at: http://sco.h-its.org/exelixis/web/software/raxml/index.html).
+-->
+-   bioscripts.convert v0.4 Python package (available at: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for ```NEXUS2gphocs.sh```).
+-   RAxML, installed and running on local machine (available at: http://sco.h-its.org/exelixis/web/software/raxml/index.html).
 
 Users must install all software not included in MAGNET, and ensure that it is available via the command line on their local machine. On the user's local machine, Perl should be available by simply typing "Perl" at the command line; Python should be available by typing "python" at the command line; and bioscripts.convert package should be available by typing "convbioseq" at the command line. Also, RAxML should be compiled using SSE3 install commands, so that RAxML can be called by simply typing "raxmlHPC-SSE3" on the command line. For detailed instructions for setting up RAxML this way, refer to the newest RAxML user manual (available at: http://sco.h-its.org/exelixis/resource/download/NewManual.pdf).
 
@@ -75,7 +88,7 @@ However, this may not always be possible, and .gphocs format is not yet among th
 
 The *Third format* that is supported in MAGNET is that of DNA sequence alignments for multiple loci contained in separate PHYLIP files for each locus. 
 
-Users must specify the input fileType with the -f flag. Options are 1 for a single G-PhoCS- or NEXUS-formattted <inputFile>, or 2 for the multiple PHYLIP option. If -f 1, then the program will expect as standard input (stdin) the name of the <inputFile>. However, if -f 2, then you should supply MAGNET with the path to the desired working directory; often, this will simply be the current working directory, in which case the user can simply type \".\" for <workingDir>, but the relative or absolute path to the <workingDir> will also work fine.
+Users must specify the input fileType with the `-f` flag. Options are 1 for a single G-PhoCS- or NEXUS-formattted <inputFile>, or 2 for the multiple PHYLIP option. If `-f 1`, then the program will expect as standard input (stdin) the name of the <inputFile>. However, if `-f 2`, then you should supply MAGNET with the path to the desired working directory; often, this will simply be the current working directory, in which case the user can simply type \".\" for <workingDir>, but the relative or absolute path to the <workingDir> will also work fine.
 
 ## PIPELINE
 
@@ -83,118 +96,158 @@ Apart from input file conversion steps, the MAGNET pipeline works by calling fiv
 
 After running the MAGNET pipeline, the shell script ```getGeneTrees.sh``` automates post-processing of the gene trees output by RAxML, including organizing all inferred gene trees into a single "gene\_trees" folder in the working directory, and combining the individual 'best' gene trees resulting from each run into a single file named "besttrees.tre". Also, if bootstrap pseudoreplicates were performed and the bootstrap tree files are detected, then the ```getBootTrees.sh``` script conducts similar processing on the bootstrap trees for each loucus, which are collated, renamed, and given a list file containing the name of each file. Given the directory of bootstrap trees resulting from a MAGNET run ("bootstrap\_trees") can take up substantial disk space (>200 MB), users may wish to compress this directory to a zip file, for example using ```$ zip -r bootstrap_trees.zip bootstrap_trees/``` at the conclusion of a run.
 
-A new feature of MAGNET (as of December 2018) is the --resume flag, a long option allowing the user to resume a previous MAGNET run in a working directory where MAGNET was previously run (specified to stdin as <workingDir>).
+A new feature of MAGNET (as of December 2018) is the `-r|--resume` flag, a long option allowing the user to resume a previous MAGNET run in a working directory where MAGNET was previously run (specified to stdin as <workingDir>). For example, do a "resume MAGNET" run by calling the program with `./MAGNET.sh [options] -r 1` or `./MAGNET.sh [options] --resume 1`.
 
 ## USAGE
 
 Additional input file and usage information is available in the usage or help texts. To get regular usage info for MAGNET, type ```$ ./MAGNET.sh```, ```$ ./MAGNET.sh -h .```, or ```./MAGNET.sh -help``` while in the MAGNET directory. However, it is more useful (particularly when running for the first time) to get _verbose usage info_ for MAGNET, including detailed descriptions of each option; do this by typing ```$ ./MAGNET.sh -H .``` or ```./MAGNET.sh -Help``` (capital "H" flag) at the command line while in the MAGNET directory. The verbose usage text is as follows:
 ```
 $ ./MAGNET.sh -H
-Usage: MAGNET.sh [Help: -h H] [Options: -f e b r s g m o] [Resume: --resume] [stdin:] <inputFile> [or] <workingDir>
- ## Help:
-  -h   help text (also: -help)
-  -H   verbose help text (also: -Help)
 
- ## Options:
-  -f   fileType (def: 1; 1 = single <inputFile>, 2 = multiple PHYLIP files) starting file
-       type; if 1, script expects as stdin a single NEXUS or G-PhoCS inputFile in the
-       current directory; if 2, then script expects <workingDir> with multiple PHYLIP files
-  -e   executable (def: raxml) name of RAxML executable, accessible from command line
-       on user's machine
-  -b   numBootstraps (def: 100) RAxML bootstrap pseudoreplicates
-  -r   raxmlModel (def: GTRGAMMA; other: GTRGAMMAI, GTRCAT, GTRCATI)
-  -s   simpleModel (def: NULL; other: JC69, K80) specifies simple substitution model
-       that will override any other model and apply to all DNA partitions
-  -g   gapThreshold (def: 0.001=essentially zero gaps allowed unless >1000 
-       individuals; takes float proportion value)
-  -m   indivMissingData (def: 1=allowed; 0=removed)
-  -o   outgroup (def: NULL) outgroup given as single taxon name (tip label) or comma-
-       separted list
+Usage: $(basename "$0") [OPTION]...
 
- ## Resume: 
- --resume   long option allowing the user to resume a previous MAGNET run in the specified
-       <workingDir> (usually current working directory)
+ ${bold}Options:${reset}
+  -f, --filetype     fileType (def: 1; also: 2) starting file type; if 1, script expects as
+                     stdin a single input NEXUS file in the current directory; if 2, then
+                     script expects multiple input PHYLIP files in current directory
+  -i, --input        inputNEXUS (def: NULL) input NEXUS file (mandatory for -f 1)
+  -e, --exec         executable (def: $MY_RAXML_EXECUTABLE) name of RAxML executable available
+                     from user's command line interface
+  -b, --boot         numBootstraps (def: $MY_NUM_BOOTREPS) RAxML bootstrap pseudoreplicates
+  -r, --raxmlmodel   raxmlModel (def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI)
+  -s, --simplemodel  simpleModel (def: $MY_SIMPLE_MODEL; other: JC69, K80, HKY85) specifies 
+                     simple DNA substitution model that will override any other model (even 
+                     across partitions)
+  -g, --gapthresh    gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless 
+                     >1000 individuals; takes float proportion value) gap threshold value
+  -m, --missing      indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed) missing  
+                     data setting
+  -o, --outgroup     outgroup (def: NULL) outgroup given as single taxon name (tip label) or
+                     comma-separted list
+  -h, --help         echo this help text and exit
+  -H, --Help         echo verbose help text and exit
+  -V, --version      echo version and exit
+  -R, --resume       resume (def: 0, off; 1, on) option allowing user to resume a previous 
+                     MAGNET run in the current working directory
+  -d, --debug        debug (def: 0, off; 1, on) run function in Bash debug mode
 
- OVERVIEW
+ ${bold}OVERVIEW${reset}
  The goal of MAGNET is to infer a maximum-likelihood (ML) gene tree in RAxML for each of 
- multiple loci, starting from one or multiple input files containing aligned DNA sequences.
- If supplied with a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') data file (using -f 1
- option), then this script splits each locus into a separate PHYLIP-formatted alignment file, 
- and sets up and runs RAxML (Stamatakis 2014) to infer gene trees for each locus. If a NEXUS 
- datafile is supplied, it is converted into G-PhoCS format (Gronau et al. 2011) while splitting
- loci into separate interleaved sequence blocks based on information provided in a sets
- block at the end of the NEXUS file (e.g. defined using 'charset' commands), which is mandatory. 
- However, if -f 2, then the program expects as standard input the name of a working directory 
- (e.g. the relative or absolute path) containing multiple PHYLIP-formatted alignment files. 
- Under this scenario, MAGNET will skip directly to running the PHYLIP files in RAxML using 
- user-specified options. Sequence names may not include hyphen characters, or there could be 
- issues. For detailed information on MAGNET and its various dependencies, see 'README.md' file 
- in the distribution folder; however, it is key that the dependencies are available from the 
- command line interface. Among the most important options is the --resume flag (see below).
+ multiple loci, starting from one or multiple DNA sequence alignment input files. If supplied
+ with a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') data file (using -f1 or -i <inputNEXUS> 
+ -f1 options), then each locus is split into a separate PHYLIP alignment file, and RAxML 
+ (Stamatakis 2014) is run to infer gene trees for each locus. If a NEXUS datafile is supplied, 
+ it is converted into G-PhoCS format (Gronau et al. 2011) while splitting loci into separate 
+ interleaved sequence blocks based on information provided in a sets block at the end of the 
+ NEXUS file (e.g. defined using 'charset' commands), which is mandatory. However, if -f2, then 
+ the program will run in current directory, assuming it contains multiple PHYLIP-formatted 
+ alignment files. Under this scenario, MAGNET will skip directly to running the PHYLIP files 
+ in RAxML using user-specified options. 
+	Sequence names may not include hyphen characters, or there could be issues. For detailed 
+ information on MAGNET and its various dependencies, see 'README.md' file in the distribution 
+ folder; however, it is key that dependencies are available from the command line interface. 
+ Among the most important options is <resume> (-r|--resume, off by default), which tells the
+ program to resume a previous MAGNET run in current directory, including detecting incomplete 
+ RAxML run folders, and running RAxML without overwriting results from the previous run(s).
 
- DETAILS
- The -f flag specifies the starting fileType. If -f 1, then the mandatory input is the name
- or path to the corresponding starting file, which will be run in the current working directory. 
- If -f 2, then mandatory input is the name or path to the working directory (type '.' for current 
- directory, or supply a relative or absolute path).
+ ${bold}DETAILS${reset}
+ The -f flag (also --filetype) specifies the starting fileType. If -f 1, then the mandatory 
+	input is the name or path to the corresponding <inputNEXUS> starting file, which is 
+	passed using the -i|--input flag. If -f 2, then mandatory input is the name or path to 
+	the working directory (type '.' for current directory, or supply a relative or absolute 
+	path).
  
- The -e flag sets the name of the RAxML executable that will be called. The user may wish to
- change this to something specific to their install, or to something generic like 'raxml'.
- The default setting should work on local machine or supercomputing cluster installs.
+ The -i flag (also --input) passess the name of the input NEXUS file, <inputNEXUS> parameter, 
+    to the program.
+
+ The -e flag (also --exec) sets the name of the RAxML executable that will be called. The 
+    default executable name is 'raxml', but the user may wish to change this to something 
+    specific to their install or parallelization needs (e.g. 'raxmlHPC-PTHREADS-SSE3'). The
+    default setting should work on local machine or supercomputing cluster installs. However, 
+    this should be tested beforehand by entering 'raxml' at the command prompt. On some 
+    version fo Linux this yields the following error message:
+
+	   'raxml: error while loading shared libraries: libmpi.so.12: cannot open shared object 
+	    file: No such file or directory'.
+
+	If this occurs, then Open MPI related libraries are installed in a non-standard location 
+	and you will need to add this location to your LD_LIBRARY_PATH, e.g.:
+
+	'export LD_LIBRARY_PATH=/usr/local/openmpi-1.8.1/lib:$LD_LIBRARY_PATH'
  
- The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while estimating 
- the gene tree for each locus. The default is 100; remove bootstrapping by setting to 0.
+	See the following URL: for more insight into this problem: https://stackoverflow.com/
+    questions/14769599/mpi-error-loading-shared-libraries. However, simply using a different 
+    raxml executable that does not rely on these libararies will also immediately solve the 
+    problem. In my experience, just setting MAGNET to call the 'raxmlHPC' executable immed-
+    iately solves this issue on Mac and Linux (so also try simply running MAGNET with '-e 
+    raxmlHPC' or '--exec raxmlHPC').
+  
+ The -b flag sets the number of boostrap pseudoreplicates for RAxML to perform while 
+    estimating the gene tree for each locus. The default is 100; remove bootstrapping by 
+    setting to 0.
 
  The -r flag sets the RAxML model for each locus. This uses the full default GTRGAMMA model,
- and at present it is not possible to vary the model across loci. If you want to use HKY
- or K80, you will need to use the -s flag (below).
+	and at present it is not possible to vary the model across loci. If you want to use HKY
+	or K80, you will need to use the -s flag (below).
 
  The -s flag sets a simple RAxML model for each locus/partition, which will override any
- model set using the -r flag above and apply to all partitions. In the current version of 
- RAxML, it is possible to specify the JC69, K80, and HKY85 models as overrides. By default,
- this option is turned off and the model set under the -r flag is used instead.
+	model set using the -r flag above and apply to all partitions. In the current version of 
+	RAxML, it is possible to specify the JC69, K80, and HKY85 models as overrides. By default,
+	this option is turned off and the model set under the -r flag is used instead.
 
  The following two options are available **ONLY** if you are starting from a NEXUS input file:
 
 	The -g flag supplies a 'gap threshold' to an R script, which deletes all column sites in 
 	the DNA alignment with a proportion of gap characters '-' at or above the threshold value. 
 	If no gap threshold is specified, all sites with gaps are removed by default. If end goal
-	is to produce a file for G-PhoCS, you  will want to leave gapThreshold at the default. 
+	is to produce a file for G-PhoCS, you  will want to leave <gapThreshold> at the default. 
 	However, if the next step in your pipeline involves converting from .gphocs to other data 
-	formats, you will likely want to set gapThreshold=1 (e.g. before converting to PHYLIP 
+	formats, you will likely want to set <gapThreshold> = 1 (e.g. before converting to PHYLIP 
 	format for RAxML). 
 
 	The -m flag allows users to choose their level of tolerance for individuals with missing
-	data. The default is indivMissingData=1, allowing individuals with runs of 10 or more 
+	data. The default is <indivMissingData> = 1, allowing individuals with runs of 10 or more 
 	missing nucleotide characters ('N') to be kept in the alignment. Alternatively, setting
-	indivMissingData=0 removes all such individuals from each locus; thus, while the input
+	<indivMissingData> = 0 removes all such individuals from each locus; thus, while the input
 	file would have had the same number of individuals across loci, the resulting file could
 	have varying numbers of individuals for different loci.
 
  The -o flag sets the outgroup exactly the same way as that described in the RAxML v8 user's
- manual, as a single name or as a comma-separated list with no spaces between taxon names. 
- The first name in the list is prioritized, e.g. when members of the list are not monophyletic.
+	manual, as a single name or as a comma-separated list with no spaces between taxon names. 
+	The first name in the list is prioritized, e.g. when members of the list are not mono-
+    phyletic.
 
- --resume is among the most important options available in MAGNET because it tells the program 
- to resume a previous run in <workingDir>, including to detect incomplete run folders
- and run RAxML there without overwriting results from run folders with finished runs. Only
- takes --resume, not resume or -resume. The default setting is to run without this option.
- 
- CITATION
- Bagley, J.C. 2019. PIrANHA v0.1.7. GitHub package, Available at: 
-	<http://github.com/justincbagley/PIrANHA>.
- or
- Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: 
-	<http://github.com/justincbagley/MAGNET>.
- or
- Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: 
-	<https://doi.org/10.5281/zenodo.596774>.
+ -R | --resume is among the most important options available in MAGNET because it tells the 
+	program to resume a previous run in current directory, including to detect incomplete run 
+	subfolders and run RAxML there without overwriting results from run folders with finished 
+	runs. The default setting is to run without this option.
 
- REFERENCES
- Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human 
-	demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
- Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
+ The -d flag runs this function in Bash debug mode (set -xv), which is intended for debugging
+	for development purposes. If you find a bug, please contact the author at jbagley@jsu.edu.
+
+ ${bold}Usage examples:${reset}
+
+    ./MAGNET.sh -f 2 -b 100 -g 1 -m 1                        Run MAGNET with 100 bootstrap pseudo-
+                                                             replicates, gaps allowed, missing 
+                                                             data allowed, and the GTRGAMMA model
+    ./MAGNET.sh -f 2 -b 100 -s HKY85 -g 1 -m 1               Same as above, but using the simpler
+                                                             HKY85 substitution model for all loci    
+    ./MAGNET.sh -f 2 -e raxmlHPC -b 100 -s HKY85 -g 1 -m 1   Same as above, but using raxmlHPC 
+                                                             executable
+    ./MAGNET.sh -H                                           Show this help text and exit
+
+ ${bold}CITATION${reset}
+ Bagley, J.C. 2020. PIrANHA v0.4a4. GitHub repository, Available at:
+	<https://github.com/justincbagley/piranha>.
+
+ ${bold}REFERENCES${reset}
+ Gronau, I., Hubisz, M.J., Gulko, B., Danko, C.G., Siepel, A. 2011. Bayesian inference of 
+	ancient human demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
+ Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
 	large phylogenies. Bioinformatics, 30, 1312-1313.
+
+ Created by Justin Bagley on/before Aug 29 13:12:45 2016 -0700.
+ Copyright (c) 2016-2020 Justin C. Bagley. All rights reserved.
 
 ```
 
@@ -209,7 +262,7 @@ Usage: MAGNET.sh [Help: -h H] [Options: -f e b r s g m o] [Resume: --resume] [st
 
 **Below I give some examples of how to use the software under the two most common scenarios:**
 
-**SCENARIO 1.** If your data contain very little missing data and, in particular, they contain no individuals with all missing data for a locus, then it should be fine to run MAGNET using the default options on either a single input file (-f 1) or multiple PHYLIP input files (-f 2), as follows:
+**SCENARIO 1.** If your data contain very little missing data and, in particular, they contain no individuals with all missing data for a locus, then it should be fine to run MAGNET using the default options on either a single input file (`-f 1`) or multiple PHYLIP input files (`-f 2`), as follows:
 ```
 ##--Scenario 1, generic usage:
 ./MAGNET.sh -f1 <inputFile>
@@ -264,17 +317,17 @@ I gratefully acknowledge Nayoki Takebayashi, who wrote and freely provided some 
 
 ## REFERENCES
 
-- Chifman J, Kubatko L (2014) Quartet inference from SNP data under the coalescent model. Bioinformatics, 30, pages 3317–3324.
-- Eaton DAR (2014) PyRAD: assembly of de novo RADseq loci for phyloge-netic analyses. Bioinformatics, 30, 1844–1849.
-- Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
-- Larget BR, Kotha SK, Dewey CN, Ané C (2010) BUCKy: gene tree/species tree reconciliation with Bayesian concordance analysis. Bioinformatics, 26(22):2910-2911.
-- Liu L, Yu L, Edwards SV (2010) A maximum pseudo-likelihood approach for estimating species trees under the coalescent model. BMC Evol Biol, 10(1):302.
-- Liu L, Yu L (2011) Estimating species trees from unrooted gene trees. Syst Biol, 60(5):661-667.
-- Mirarab S, Warnow T (2015) ASTRAL-II: coalescent-based species tree estimation with many hundreds of taxa and thousands of genes. Bioinformatics, 30:44-52.
-- Peterson BK, Weber JN, Kay EH, Fisher HS, Hoekstra HE (2012) Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species. PLoS One, 7, e37135.
-- Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics, 30.9, 1312-1313.
-- Vachaspati P, Warnow T (2015) ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics, 16(Suppl 10):S3.
+-   Chifman J, Kubatko L (2014) Quartet inference from SNP data under the coalescent model. Bioinformatics, 30, pages 3317–3324.
+-   Eaton DAR (2014) PyRAD: assembly of de novo RADseq loci for phyloge-netic analyses. Bioinformatics, 30, 1844–1849.
+-   Gronau I, Hubisz MJ, Gulko B, Danko CG, Siepel A (2011) Bayesian inference of ancient human demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
+-   Larget BR, Kotha SK, Dewey CN, Ané C (2010) BUCKy: gene tree/species tree reconciliation with Bayesian concordance analysis. Bioinformatics, 26(22):2910-2911.
+-   Liu L, Yu L, Edwards SV (2010) A maximum pseudo-likelihood approach for estimating species trees under the coalescent model. BMC Evol Biol, 10(1):302.
+-   Liu L, Yu L (2011) Estimating species trees from unrooted gene trees. Syst Biol, 60(5):661-667.
+-   Mirarab S, Warnow T (2015) ASTRAL-II: coalescent-based species tree estimation with many hundreds of taxa and thousands of genes. Bioinformatics, 30:44-52.
+-   Peterson BK, Weber JN, Kay EH, Fisher HS, Hoekstra HE (2012) Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species. PLoS One, 7, e37135.
+-   Stamatakis A (2014) RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics, 30.9, 1312-1313.
+-   Vachaspati P, Warnow T (2015) ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics, 16(Suppl 10):S3.
 
 
-February 24, 2019
-Justin C. Bagley, St. Louis, MO, USA
+December 21, 2020
+Justin C. Bagley, Tuscaloosa, AL, USA
