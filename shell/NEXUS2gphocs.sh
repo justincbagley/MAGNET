@@ -2,10 +2,10 @@
 
 ##########################################################################################
 #                           NEXUS2gphocs v1.5.1, December 2020                           #
-                                      version="v1.3"                                     #
+                                    VERSION="v1.5.1"                                     #
 # Author: Justin C. Bagley                                                               #
 # Date: Created by Justin Bagley on/before Aug 29 13:12:45 2016 -0700.                   #
-# Last update: December 21, 2020                                                         #
+# Last update: December 22, 2020                                                         #
 # Copyright (c) 2016-2020 Justin C. Bagley. All rights reserved.                         #
 # Please report bugs to <jbagley@jsu.edu>.                                               #
 #                                                                                        #
@@ -21,7 +21,8 @@ MY_GAP_THRESHOLD=0.001
 MY_INDIV_MISSING_DATA=1
 
 ############ CREATE USAGE & HELP TEXTS
-Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] [stdin:] <inputNexus> 
+Usage="
+Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] [stdin:] <inputNexus> 
  ## Help:
   -h   help text (also: -help -H -Help)
 
@@ -29,6 +30,8 @@ Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] [stdin:] <
   -g   gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless >1000 
        individuals; takes float proportion value)
   -m   indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed)
+  -h   help text (also: --help) echo this help text and exit
+  -V   version (also: --version) echo version and exit
 
  OVERVIEW
  Reads in a single NEXUS datafile and converts it to '.gphocs' format for G-PhoCS software
@@ -54,15 +57,15 @@ Usage="Usage: $(basename "$0") [Help: -h help H Help] [Options: -g m] [stdin:] <
  'selectSites.pl' in working directory or available from command line (in your path).
 
  CITATION
- Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: 
+ Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: 
 	<http://github.com/justincbagley/MAGNET>.
  or
- Bagley, J.C. 2019. MAGNET v0.1.5. GitHub package, Available at: 
+ Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: 
 	<https://doi.org/10.5281/zenodo.596774>.
 "
 
-if [[ "$1" == "-v" ]] || [[ "$1" == "--version" ]]; then
-	echo "$(basename $0) ${version}";
+if [[ "$1" == "-V" ]] || [[ "$1" == "--version" ]]; then
+	echo "$(basename "$0") $VERSION";
 	exit
 fi
 
@@ -109,8 +112,8 @@ echo "INFO      | $(date) |-----------------------------------------------------
 ############ STEP #1: SETUP VARIABLES
 ###### Set filetypes as different variables:
 echo "INFO      | $(date) | Examining current directory, setting variables... "
-	MY_WORKING_DIR="$(pwd)";
-	CR=$(printf '\r');
+	export MY_WORKING_DIR="$(pwd)";
+	export CR=$(printf '\r');
 	calc () {
 	   	bc -l <<< "$@" ;
 	}
@@ -166,8 +169,8 @@ echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 			echo "$j"
 			charRange="$(echo "$j" | sed 's/\,//g')";
 			echo "$charRange";
-			setLower="$(echo "$j" | sed 's/\-.*$//g')";
-			setUpper="$(echo "$j" | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')";
+			export setLower="$(echo "$j" | sed 's/\-.*$//g')";
+			export setUpper="$(echo "$j" | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')";
 
 			**/selectSites.pl -s $charRange $MY_FASTA > ./sites.fasta ;
 			
