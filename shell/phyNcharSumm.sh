@@ -31,7 +31,7 @@ echo "INFO      | $(date) |          Saving number of characters for each alignm
 (
 	for i in ./*.phy; do 
 		echo "$i" >> phyalign_names.txt; 
-		echo "$(head -n1 $i | awk -F"[0-9]*\ " '{print $NF}')" >> nchar.txt ; 
+		echo "$(head -n1 "$i" | awk -F"[0-9]*\ " '{print $NF}')" >> nchar.txt ; 
 	done;
 )
 
