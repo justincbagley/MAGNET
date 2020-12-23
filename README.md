@@ -6,12 +6,8 @@ Shell script pipeline for inferring ML gene trees for many loci (e.g. RAD loci, 
 
 ## NOTICE
 
-<!--```diff
-! NOTICE !
-```-->
 >**MAGNET is currently only being actively maintained and developed within [PIrANHA](https://github.com/justincbagley/piranha), where it is at [v1.2.0](https://github.com/justincbagley/piranha/tree/master/bin/MAGNET-1.1.0).** 
 >**The present repository will be periodically updated to include a standalone version of the MAGNET software. This helps users interested _only_ in MAGNET; however, it is strongly recommended that you install the full PIrANHA distribution and request MAGNET updates or bug fixes through the [PIrANHA repo](https://github.com/justincbagley/piranha) (e.g. [contact the author](https://github.com/justincbagley/piranha/wiki/6.-Contact), or raise an issue [here](https://github.com/justincbagley/piranha/issues)).**
->
 
 ## LICENSE
 
