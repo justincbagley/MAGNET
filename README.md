@@ -127,7 +127,7 @@ A new feature of MAGNET (as of December 2018) is the `<resume>` option (`-R` and
 
 ## USAGE
 
-Additional input file and usage information is available in the usage or help texts. To get regular usage info for MAGNET, call for the help text by typing `./MAGNET -h` or `./MAGNET --help` (long option flag) at the terminal command line, and pressing enter. However, it is more useful (particularly when running for the first time, or after not running for awhile) to get *verbose usage information* for MAGNET, including detailed descriptions of each option. You can do this by entering `./MAGNET -H` or `./MAGNET --Help` (long option flag) at the command line. 
+Additional input file and usage information is available in the usage or help texts. To get regular usage info for MAGNET, call for the help text by typing `./MAGNET -h` or `./MAGNET --help` (long option flag) at the terminal command line, and pressing enter. However, it is more useful (particularly when running for the first time, or after not running for awhile) to get _verbose usage information_ for MAGNET, including detailed descriptions of each option. You can do this by entering `./MAGNET -H` or `./MAGNET --Help` (long option flag) at the command line. 
 
 The verbose usage text is as follows:
 
