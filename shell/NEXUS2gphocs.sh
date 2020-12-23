@@ -121,7 +121,7 @@ echo "INFO      | $(date) | Examining current directory, setting variables... "
 
 ############ STEP #2: GET NEXUS FILE & DATA CHARACTERISTICS, CONVERT NEXUS TO FASTA FORMAT
 # Extract charset info from sets block at end of NEXUS file: 
-	MY_NEXUS_CHARSETS="$(egrep "charset|CHARSET" $MY_NEXUS | \
+	MY_NEXUS_CHARSETS="$(egrep "charset|CHARSET" "$MY_NEXUS" | \
 	awk -F"=" '{print $NF}' | sed 's/\;/\,/g' | \
 	awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' | \
 	sed 's/\,/\,'$CR'/g' | sed 's/^\ //g')";
@@ -129,10 +129,10 @@ echo "INFO      | $(date) | Examining current directory, setting variables... "
 # Count number of loci present in the NEXUS file, based on number of charsets defined.
 # Also get corrected count starting from 0 for numbering loci below...
 	MY_NLOCI="$(echo "$MY_NEXUS_CHARSETS" | wc -l)";
-	MY_CORR_NLOCI="$(calc $MY_NLOCI - 1)";
+	MY_CORR_NLOCI="$(calc "$MY_NLOCI" - 1)";
 
 # This is the base name of the original nexus file, so you have it. This WILL work regardless of whether the NEXUS filename extension is written in lowercase or in all caps, ".NEX".
-	MY_NEXUS_BASENAME="$(echo $MY_NEXUS | sed 's/\.\///g; s/\.[A-Za-z]\{3\}$//g')";
+	MY_NEXUS_BASENAME="$(echo "$MY_NEXUS" | sed 's/\.\///g; s/\.[A-Za-z]\{3\}$//g')";
 
 # Convert data file from NEXUS to fasta format using bioscripts.convert v0.4 Python package:
 # However, if alignment is too long (>100,000 bp), then need to convert to fasta using my 
@@ -152,7 +152,7 @@ echo "INFO      | $(date) | Examining current directory, setting variables... "
 	if [[ -s "$MY_NEXUS_BASENAME".fasta ]]; then
 		echo "INFO      | $(date) |          Input NEXUS was successfully converted to fasta format. Moving forward... "
 	else
-		echo "WARNING!  | $(date) |          NEXUS to fasta file conversion FAILED! Quitting... "
+		echo "WARNING   | $(date) |          NEXUS to fasta file conversion FAILED! Quitting... "
 		exit 1 ;
 	fi
 
@@ -165,7 +165,7 @@ echo "$MY_NLOCI" | sed 's/[\ ]*//g' > gphocs_top.txt ;
 echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 	count=0
 	(
-		for j in ${MY_NEXUS_CHARSETS}; do
+		for j in $MY_NEXUS_CHARSETS; do
 			echo "$j"
 			charRange="$(echo "$j" | sed 's/\,//g')";
 			echo "$charRange";
@@ -216,7 +216,10 @@ echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 					cat ./locus_top.tmp ./sites_nogaps.phy >> ./gphocs_body.txt ;
 				fi
 
-			rm ./sites.fasta ./sites.phy ./*.tmp ;
+			rm ./sites.fasta ./sites.phy ;
+			if [[ "$(ls -1 ./*.tmp 2>/dev/null | wc -l | sed 's/\ //g')" != "0"  ]]; then 
+				rm ./*.tmp ; 
+			fi
 			rm ./sites_nogaps.phy ;
 		done
 	)
@@ -225,9 +228,9 @@ echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 	cat ./gphocs_top.txt ./gphocs_body_fix.txt > "$MY_NEXUS_BASENAME".gphocs ;
 
 	############ STEP #4: CLEANUP: REMOVE UNNECESSARY FILES
-	if [[ -s ./gphocs_top.txt ]]; then rm ./gphocs_top.txt ; fi
-	if [[ -s ./gap_threshold.txt ]]; then rm ./gap_threshold.txt ; fi
-	if [[ -s ./gphocs_body.txt ]]; then rm ./gphocs_body.txt ; fi
+	if [[ -s ./gphocs_top.txt ]]; then rm ./gphocs_top.txt ; fi ;
+	if [[ -s ./gap_threshold.txt ]]; then rm ./gap_threshold.txt ; fi ;
+	if [[ -s ./gphocs_body.txt ]]; then rm ./gphocs_body.txt ; fi ;
 
 echo "INFO      | $(date) | Successfully created a '.gphocs' input file from the existing NEXUS file... "
 echo "-------------------------------------------------------------------------------------"
