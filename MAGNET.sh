@@ -246,7 +246,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	        export setLower="$(echo "$j" | sed 's/\-.*$//g')";
 			export setUpper="$(echo "$j" | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')";
 	
-			**/selectSites.pl -s $charRange $MY_FASTA > ./sites.fasta ;
+			**/selectSites.pl -s "$charRange" "$MY_FASTA" > ./sites.fasta ;
 				
 			**/fasta2phylip.pl ./sites.fasta > ./sites.phy ;
 
@@ -338,7 +338,8 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	# ---------------------------------------------------------- #
 	gphocs2multiPhylip_function () {
 
-	MY_NLOCI="$(head -n1 $MY_GPHOCS_DATA_FILE)";
+	MY_NLOCI="$(head -n1 "$MY_GPHOCS_DATA_FILE")";
+	MY_CORR_NLOCI="$(calc "$MY_NLOCI" - 1)";
 
 	# --------------------------------------------------
 	# -- STEP #3: MAKE ALIGNMENTS FOR EACH LOCUS FROM GPHOCS FILE, IF STARTING FROM GPHOCS FILE.
@@ -349,15 +350,15 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	echo "INFO      | $(date) | In a single loop, using info from '.gphocs' file to split each locus block into a separate PHYLIP-formatted "
 	echo "INFO      | $(date) | alignment file using gphocs2multiPhylip code... "
 	(
-		for (( i=0; i<=$(calc $MY_NLOCI-1); i++ )); do
+		for (( i=0; i<=MY_CORR_NLOCI; i++ )); do
 			echo "$i"
-			MY_NTAX="$(grep -n "locus$i\ " $MY_GPHOCS_DATA_FILE | \
+			MY_NTAX="$(grep -n "locus$i\ " "$MY_GPHOCS_DATA_FILE" | \
 			awk -F"locus$i " '{print $NF}' | sed 's/\ [0-9]*//g')";			
 
-			MY_NCHAR="$(grep -n "locus$i\ " $MY_GPHOCS_DATA_FILE | \
+			MY_NCHAR="$(grep -n "locus$i\ " "$MY_GPHOCS_DATA_FILE" | \
 			awk -F"locus$i [0-9]*\ " '{print $NF}')";
 		
-			awk "/locus"$i"\ / {for(j=1; j<="$MY_NTAX"; j++) {getline; print}}" $MY_GPHOCS_DATA_FILE > ./locus"$i".tmp ;
+			awk "/locus"$i"\ / {for(j=1; j<=MY_NTAX; j++) {getline; print}}" "$MY_GPHOCS_DATA_FILE" > ./locus"$i".tmp ;
 
 			echo "$MY_NTAX $MY_NCHAR" > ./locus"$i"_header.tmp ;
 				
