@@ -1,10 +1,10 @@
 #!/bin/sh
 
 ##########################################################################################
-#                          RAxMLRunChecker v1.3.1, December 2020                         #
+#                          RAxMLRunChecker v1.3.2, December 2020                         #
 # Author: Justin C. Bagley                                                               #
 # Date: Created by Justin Bagley on/before November 29, 2018.                            #
-# Last update: December 21, 2020                                                         #
+# Last update: December 23, 2020                                                         #
 # Copyright (c) 2018-2020 Justin C. Bagley. All rights reserved.                         #
 # Please report bugs to <jbagley@jsu.edu>.                                               #
 #                                                                                        #
@@ -26,7 +26,7 @@
 ######################################## START ###########################################
 
 echo "INFO      | $(date) |----------------------------------------------------------------"
-echo "INFO      | $(date) | RAxMLRunChecker, v1.3.1 December 2020  (part of PIrANHA v0.4a4)"
+echo "INFO      | $(date) | RAxMLRunChecker, v1.3.2 December 2020  (part of PIrANHA v0.4a4)"
 echo "INFO      | $(date) | Copyright (c) 2018-2020 Justin C. Bagley. All rights reserved. "
 echo "INFO      | $(date) |----------------------------------------------------------------"
 echo "INFO      | $(date) | Starting RAxMLRunChecker pipeline... "
@@ -99,7 +99,7 @@ echo "INFO      | $(date) | Step #2: Check RAxML runs in subfolders in current d
 	echo "INFO      | $(date) |          ...  $count / $MY_N_LOCI_FOLD ..."
 (
 	for i in ./locus*/; do 
-		MY_LOCUS="$(echo $i | sed 's/\.\///g; s/\///g; s/\ //g')"; 
+		MY_LOCUS="$(echo "$i" | sed 's/\.\///g; s/\///g; s/\ //g')"; 
 		MY_COUNT_HUND_CHECK="$(calc $count / 100 | sed 's/^[0-9]*\.//g; s/^[0]\{1\}//g')"
 		if [[ "$MY_COUNT_HUND_CHECK" -eq "0" ]]; then
 			echo "INFO      | $(date) |          ...  $count / $MY_N_LOCI_FOLD ..."
@@ -141,7 +141,7 @@ echo "INFO      | $(date) | Step #2: Check RAxML runs in subfolders in current d
 		    Darwin*)    machine=Mac;;
 		    CYGWIN*)    machine=Cygwin;;
 		    MINGW*)     machine=MinGw;;
-		    *)          machine="UNKNOWN:${unameOut}"
+		    *)          export machine="UNKNOWN:${unameOut}"
 		esac
 		# echo "INFO      | $(date) |          System: ${machine}"
 
