@@ -135,23 +135,23 @@ The verbose usage text is as follows:
 
 $ ./MAGNET -H
 
-Usage: $(basename "$0") [OPTION]...
+Usage: MAGNET [OPTION]...
 
- ${bold}Options:${reset}
+ Options:
   -f, --filetype     fileType (def: 1; also: 2) starting file type; if 1, script expects as
                      stdin a single input NEXUS file in the current directory; if 2, then
                      script expects multiple input PHYLIP files in current directory
   -i, --input        inputNEXUS (def: NULL) input NEXUS file (mandatory for -f 1)
-  -e, --exec         executable (def: $MY_RAXML_EXECUTABLE) name of RAxML executable available
+  -e, --exec         executable (def: raxml) name of RAxML executable available
                      from user's command line interface
-  -b, --boot         numBootstraps (def: $MY_NUM_BOOTREPS) RAxML bootstrap pseudoreplicates
-  -r, --raxmlmodel   raxmlModel (def: $MY_RAXML_MODEL; other: GTRGAMMAI, GTRCAT, GTRCATI)
-  -s, --simplemodel  simpleModel (def: $MY_SIMPLE_MODEL; other: JC69, K80, HKY85) specifies 
+  -b, --boot         numBootstraps (def: 100) RAxML bootstrap pseudoreplicates
+  -r, --raxmlmodel   raxmlModel (def: GTRGAMMA; other: GTRGAMMAI, GTRCAT, GTRCATI)
+  -s, --simplemodel  simpleModel (def: NULL; other: JC69, K80, HKY85) specifies 
                      simple DNA substitution model that will override any other model (even 
                      across partitions)
-  -g, --gapthresh    gapThreshold (def: $MY_GAP_THRESHOLD=essentially zero gaps allowed unless 
+  -g, --gapthresh    gapThreshold (def: 0.001=essentially zero gaps allowed unless 
                      >1000 individuals; takes float proportion value) gap threshold value
-  -m, --missing      indivMissingData (def: $MY_INDIV_MISSING_DATA=allowed; 0=removed) missing  
+  -m, --missing      indivMissingData (def: 1=allowed; 0=removed) missing  
                      data setting
   -o, --outgroup     outgroup (def: NULL) outgroup given as single taxon name (tip label) or
                      comma-separted list
@@ -162,7 +162,7 @@ Usage: $(basename "$0") [OPTION]...
                      MAGNET run in the current working directory
   -d, --debug        debug (def: 0, off; 1, on) run function in Bash debug mode
 
- ${bold}OVERVIEW${reset}
+ OVERVIEW
  The goal of MAGNET is to infer a maximum-likelihood (ML) gene tree in RAxML for each of 
  multiple loci, starting from one or multiple DNA sequence alignment input files. If supplied
  with a single G-PhoCS ('*.gphocs') or NEXUS ('*.nex') data file (using -f1 or -i <inputNEXUS> 
@@ -181,7 +181,7 @@ Usage: $(basename "$0") [OPTION]...
  program to resume a previous MAGNET run in current directory, including detecting incomplete 
  RAxML run folders, and running RAxML without overwriting results from the previous run(s).
 
- ${bold}DETAILS${reset}
+ DETAILS
  The -f flag (also --filetype) specifies the starting fileType. If -f 1, then the mandatory 
 	input is the name or path to the corresponding <inputNEXUS> starting file, which is 
 	passed using the -i|--input flag. If -f 2, then mandatory input is the name or path to 
@@ -204,7 +204,7 @@ Usage: $(basename "$0") [OPTION]...
 	If this occurs, then Open MPI related libraries are installed in a non-standard location 
 	and you will need to add this location to your LD_LIBRARY_PATH, e.g.:
 
-	'export LD_LIBRARY_PATH=/usr/local/openmpi-1.8.1/lib:$LD_LIBRARY_PATH'
+	'export LD_LIBRARY_PATH=/usr/local/openmpi-1.8.1/lib:'
  
 	See the following URL: for more insight into this problem: https://stackoverflow.com/
     questions/14769599/mpi-error-loading-shared-libraries. However, simply using a different 
@@ -256,7 +256,7 @@ Usage: $(basename "$0") [OPTION]...
  The -d flag runs this function in Bash debug mode (set -xv), which is intended for debugging
 	for development purposes. If you find a bug, please contact the author at jbagley@jsu.edu.
 
- ${bold}Usage examples:${reset}
+ Usage examples:
 
     ./MAGNET -f 2 -b 100 -g 1 -m 1                        Run MAGNET with 100 bootstrap pseudo-
                                                           replicates, gaps allowed, missing 
@@ -267,11 +267,11 @@ Usage: $(basename "$0") [OPTION]...
                                                           executable
     ./MAGNET -H                                           Show this help text and exit
 
- ${bold}CITATION${reset}
+ CITATION
  Bagley, J.C. 2020. PIrANHA v0.4a4. GitHub repository, Available at:
 	<https://github.com/justincbagley/piranha>.
 
- ${bold}REFERENCES${reset}
+ REFERENCES
  Gronau, I., Hubisz, M.J., Gulko, B., Danko, C.G., Siepel, A. 2011. Bayesian inference of 
 	ancient human demography from individual genome sequences. Nature Genetics, 43, 1031-1034.
  Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of 
