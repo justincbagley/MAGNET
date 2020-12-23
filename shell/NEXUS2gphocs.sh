@@ -129,7 +129,7 @@ echo "INFO      | $(date) | Examining current directory, setting variables... "
 # Count number of loci present in the NEXUS file, based on number of charsets defined.
 # Also get corrected count starting from 0 for numbering loci below...
 	MY_NLOCI="$(echo "$MY_NEXUS_CHARSETS" | wc -l)";
-	MY_CORR_NLOCI="$(calc "$MY_NLOCI" - 1)";
+	export MY_CORR_NLOCI="$(calc "$MY_NLOCI" - 1)";
 
 # This is the base name of the original nexus file, so you have it. This WILL work regardless of whether the NEXUS filename extension is written in lowercase or in all caps, ".NEX".
 	MY_NEXUS_BASENAME="$(echo "$MY_NEXUS" | sed 's/\.\///g; s/\.[A-Za-z]\{3\}$//g')";
