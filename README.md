@@ -354,7 +354,7 @@ In addition to the above, here are illustrations of more complex usage cases var
 
 Here are complex usage examples similar to those just above, only illustrating the long option flags:
 
-```
+```sh
 # Scenario 1, overriding the default model with HKY85 and adding an outgroup:
 ./MAGNET --input <inputNEXUS> --filetype 1 --raxmlmodel GTRCAT --simplemodel HKY85 --outgroup outgroup
 ./MAGNET --filetype 2 --raxmlmodel GTRCAT --simplemodel HKY85 --outgroup outgroup
@@ -378,4 +378,4 @@ I gratefully acknowledge Nayoki Takebayashi, who wrote and freely provided some 
 -   Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30.9, 1312-1313.
 -   Vachaspati, P., Warnow, T. 2015. ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics 16(Suppl 10):S3.
 
-_December 22, 2020_ - _Justin C. Bagley, Tuscaloosa, AL, USA_
+_December 23, 2020_ - _Justin C. Bagley, Tuscaloosa, AL, USA_
