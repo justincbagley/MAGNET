@@ -84,15 +84,15 @@ MAGNET v1.2.0 is a software package composed of `shell`, `R`, and Perl scripts a
 - Python (available at: https://www.python.org/downloads/).
 -->
 -   **bioscripts.convert v0.4 Python package**
-    *   Description: 
+    -   Description: 
         *    http://www.agapow.net/software/bioscripts.convert
-    *   Installation: 
+    -   Installation: 
         *    Python Package Index: https://pypi.python.org/pypi/bioscripts.convert/0.4; also see README for `NEXUS2gphocs.sh`).
         *   `pip` install code: `pip install bioscripts.convert==0.4`
 -   **RAxML - Randomized Axelerated Maximum Likelihood**
-    *   Description:
+    -   Description:
         *    The Exelixis Lab RAxML page - https://cme.h-its.org/exelixis/web/software/raxml/
-    *   Installation: 
+    -   Installation: 
         *    Source code: https://github.com/stamatak/standard-RAxML
         *    Conda install page: https://anaconda.org/bioconda/raxml
         *    Conda install code: `conda install -c bioconda raxml` (requires one of the Anaconda data science/Python distribution platform: https://www.anaconda.com/products/individual)
