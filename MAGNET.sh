@@ -9,7 +9,7 @@
   VERSION="v1.2.0"                                                                       #
 # Author: Justin C. Bagley                                                               #
 # Date: Created by Justin Bagley on Mon, Aug 29 13:12:45 2016 -0700.                     #
-# Last update: December 22, 2020                                                         #
+# Last update: December 23, 2020                                                         #
 # Copyright (c) 2016-2020 Justin C. Bagley. All rights reserved.                         #
 # Please report bugs to <jbagley@jsu.edu>.                                               #
 #                                                                                        #
@@ -475,7 +475,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 				if [[ "$i" != "./archive/" ]] && [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
 					echo "$i"
 					cd "$i";
-					LOCUS_NAME="$(echo $i | sed 's/\.\///g; s/\/$//g')";
+					LOCUS_NAME="$(echo "$i" | sed 's/\.\///g; s/\/$//g')"; # NOTE: not currently using "$LOCUS_NAME" here, but leave for now, bc may need to use it later...
 				#
 					if [[ "$MY_OUTGROUP" = "NULL" ]] && [[ "$MY_SIMPLE_MODEL" = "NULL" ]]; then
 						"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# ${MY_NUM_BOOTREPS} -m ${MY_RAXML_MODEL} -s ./*.phy -n ${MY_OUTPUT_NAME}
@@ -496,8 +496,6 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 				fi
 			done
 		)
-		# NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
-	
 	
 		# Here: adding loop code to move all .phy files remaining in the current working 
 		# directory, after Step #3 of the pipeline, to a new folder called "phylip_files". This
@@ -525,7 +523,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 			for i in ./*/; do
 				if [[ "$i" != "./archive/" ]] && [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
 					cd "$i";
-					LOCUS_NAME="$(echo $i | sed 's/\.\///g; s/\/$//g')";
+					LOCUS_NAME="$(echo "$i" | sed 's/\.\///g; s/\/$//g')";
 				#
 					if [[ "$MY_OUTPUT_NAME" = "raxml_out" ]] && [[ ! -s ./RAxML_info.raxml_out ]]; then
 					echo "$i"
@@ -875,7 +873,7 @@ if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
 				if [[ "$i" != "./archive/" ]] && [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
 					echo "$i"
 					cd "$i";
-					LOCUS_NAME="$(echo $i | sed 's/\.\///g; s/\/$//g')";  # NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
+					LOCUS_NAME="$(echo "$i" | sed 's/\.\///g; s/\/$//g')";  # NOTE: not currently using "$LOCUS_NAME" here, but leave for now, bc may need to use it later...
 				#
 					if [[ "$MY_OUTGROUP" = "NULL" ]] && [[ "$MY_SIMPLE_MODEL" = "NULL" ]]; then
 						"$MY_RAXML_EXECUTABLE" -f a -x "$RANDOM""$RANDOM" -p "$RANDOM""$RANDOM" -# ${MY_NUM_BOOTREPS} -m ${MY_RAXML_MODEL} -s ./*.phy -n ${MY_OUTPUT_NAME}
@@ -918,7 +916,7 @@ if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
 			for i in ./*/; do
 				if [[ "$i" != "./archive/" ]] && [[ "$i" != "./bad_genes/" ]] && [[ "$i" != "./R/" ]] && [[ "$i" != "./shell/" ]] && [[ "$i" != "./perl/" ]] && [[ "$i" != "./orig_phylip/" ]] && [[ "$i" != "./phylip/" ]] && [[ "$i" != "./orig_fasta/" ]] && [[ "$i" != "./fasta/" ]] && [[ "$i" != "./phylip_files/" ]]; then
 					cd "$i";
-					LOCUS_NAME="$(echo $i | sed 's/\.\///g; s/\/$//g')"; # NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
+					LOCUS_NAME="$(echo "$i" | sed 's/\.\///g; s/\/$//g')"; # NOTE: not currently using $LOCUS_NAME here, but leave for now, bc may need to use it later...
 				#
 					if [[ ! -s ./RAxML_info.raxml_out ]]; then
 						echo "$i"
@@ -1047,7 +1045,7 @@ if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
 		for l in ${MY_BOOT_TREE_LIST}; do
 			echo "$l"
 			cp "$l" ./bootstrap_trees/ ;
-			MY_LOCUS_NAME="$(echo $l | sed 's/\/[A-Za-z.\_\-]*//g')";
+			MY_LOCUS_NAME="$(echo "$l" | sed 's/\/[A-Za-z.\_\-]*//g')";
 			cp ./bootstrap_trees/RAxML_bootstrap.raxml_out ./bootstrap_trees/"$MY_LOCUS_NAME"_RAxML_boot.tre ;
 			if [[ -s ./bootstrap_trees/RAxML_bootstrap.raxml_out ]]; then rm ./bootstrap_trees/RAxML_bootstrap.raxml_out ; fi
 		done
@@ -1087,7 +1085,7 @@ if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
 		for l in ${MY_BIPART_TREE_LIST}; do
 			echo "$l"
 			cp "$l" ./bipartitions_trees/ ;
-			MY_LOCUS_NAME="$(echo $l | sed 's/\/[A-Za-z.\_\-]*//g')";
+			MY_LOCUS_NAME="$(echo "$l" | sed 's/\/[A-Za-z.\_\-]*//g')";
 			cp ./bipartitions_trees/RAxML_bipartitions.raxml_out ./bipartitions_trees/"$MY_LOCUS_NAME"_RAxML_bipartitions.tre ;
 			if [[ -s ./bipartitions_trees/RAxML_bipartitions.raxml_out ]]; then rm ./bipartitions_trees/RAxML_bipartitions.raxml_out ; fi
 		done
