@@ -2,6 +2,8 @@
 
 ## MAGNET v1.2.0 (current official major version release)
 
+-   **December 23, 2020:** Updated MAGNET README (and saved PDF), and also prepared and released official major version 1.2.0 release, updated 'changeLog.md'.
+-   **December 22-23, 2020:** Linted MAGNET scripts to pinpoint minor errors and weaknesses in the code, and went through and edited the main MAGNET shell scripts `MAGNET` and `MAGNET.sh`, as well as all `shell/` subfolder scripts.
 -   **December 19-21, 2020:** Updated the standalone `MAGNET.sh` script and pipeline files (`shell` and `R` scripts) in this repository to version last released with the current head of PIrANHA (MAGNET v1.1.1), and then updated MAGNET to v1.2.0 here and in PIrANHA repo through various changes. Changes include a full rewrite of code for manually parsing the options, as an overhaul of the usage texts, and various minor edits to essentially all files (including some stylistic changes and some code improvements).
 
 ...
