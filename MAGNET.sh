@@ -302,7 +302,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	)
 
 	grep -v "^[0-9]*\ [0-9]*.*$" ./gphocs_body.txt > ./gphocs_body_fix.txt ;
-	sed 's/locus/'$CR'locus/g' ./gphocs_body_fix.txt > ./gphocs_body_fix2.txt ;
+	sed 's/locus/'"$CR"'locus/g' ./gphocs_body_fix.txt > ./gphocs_body_fix2.txt ;
 	cat ./gphocs_top.txt ./gphocs_body_fix2.txt > "$MY_NEXUS_BASENAME".gphocs ;
 
 	# CLEANUP: REMOVE UNNECESSARY FILES
