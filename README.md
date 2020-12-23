@@ -151,8 +151,7 @@ Usage: MAGNET [OPTION]...
                      across partitions)
   -g, --gapthresh    gapThreshold (def: 0.001=essentially zero gaps allowed unless 
                      >1000 individuals; takes float proportion value) gap threshold value
-  -m, --missing      indivMissingData (def: 1=allowed; 0=removed) missing  
-                     data setting
+  -m, --missing      indivMissingData (def: 1=allowed; 0=removed) missing data setting
   -o, --outgroup     outgroup (def: NULL) outgroup given as single taxon name (tip label) or
                      comma-separted list
   -h, --help         echo this help text and exit
