@@ -712,7 +712,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 		for l in ${MY_BIPART_TREE_LIST}; do
 			echo "$l"
 			cp "$l" ./bipartitions_trees/ ;
-			MY_LOCUS_NAME="$(echo $l | sed 's/\/[A-Za-z.\_\-]*//g')";
+			MY_LOCUS_NAME="$(echo "$l" | sed 's/\/[A-Za-z.\_\-]*//g')";
 			cp ./bipartitions_trees/RAxML_bipartitions.raxml_out ./bipartitions_trees/"$MY_LOCUS_NAME"_RAxML_bipartitions.tre ;
 			if [[ -s ./bipartitions_trees/RAxML_bipartitions.raxml_out ]]; then rm ./bipartitions_trees/RAxML_bipartitions.raxml_out ; fi
 		done
