@@ -51,7 +51,6 @@ function echoShortPWD () {
 # 2) up one dir, and 3) some other dir.
 # ------------------------------------------------------
 function echoCDWorkingDir () {
-
 if [[ -s "$USER_SPEC_PATH" ]]; then
 	if [[ "$USER_SPEC_PATH" = "$(printf '%q\n' "$(pwd -P)")" ]] || [[ "$USER_SPEC_PATH" = "." ]]; then
 		MY_CWD="$(printf '%q\n' "$(pwd -P)" | sed 's/\\//g')";
@@ -102,15 +101,15 @@ case "${unameOut}" in
 	Darwin*)    machine=Mac;;
 	CYGWIN*)    machine=Cygwin;;
 	MINGW*)     machine=MinGw;;
-	*)          machine="UNKNOWN:${unameOut}"
+	*)          export machine="UNKNOWN:${unameOut}"
 esac;
 }
 
 # Import variables
 # ------------------------------------------------------
-EP=$(printf '!')
-TAB=$(printf '\t')
-CR=$(printf '\r')
+export EP=$(printf '!')
+export TAB=$(printf '\t')
+export CR=$(printf '\r')
 
 
 
@@ -240,12 +239,12 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 	count=0
 	(
-		for j in ${MY_NEXUS_CHARSETS}; do
+		for j in $MY_NEXUS_CHARSETS; do
 			echo "$j"
-			charRange="$(echo ${j} | sed 's/\,//g')";
+			charRange="$(echo "$j" | sed 's/\,//g')";
 	        echo "$charRange"
-	        setLower="$(echo ${j} | sed 's/\-.*$//g')";
-			setUpper="$(echo ${j} | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')";
+	        export setLower="$(echo "$j" | sed 's/\-.*$//g')";
+			export setUpper="$(echo "$j" | sed 's/[0-9]*\-//g' | sed 's/\,//g; s/\ //g')";
 	
 			**/selectSites.pl -s $charRange $MY_FASTA > ./sites.fasta ;
 				
@@ -269,8 +268,8 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 				# using UNIX test operator "-s" (returns true if file size is not zero). 
 				# If fails, cat sites.phy into file with same name as nogaps file that
 				# is output by rmGapSites.R and move forward:
-				if [ -s ./gaptest.tmp ]; then
-					echo "Removing column sites in locus"$count" with gaps. "
+				if [[ -s ./gaptest.tmp ]]; then
+					echo "Removing column sites in locus${count} with gaps. "
 					R CMD BATCH **/rmGapSites.R
 				else
 			   		echo ""
@@ -282,18 +281,21 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 				locus_nchar="$(head -n1 ./sites_nogaps.phy | sed 's/[0-9]*\ //g')";
 			
 			
-				if [ $MY_INDIV_MISSING_DATA = "0" ]; then	
+        		if [[ "$MY_INDIV_MISSING_DATA" = "0" ]]; then
 					sed '1d' ./sites_nogaps.phy | egrep -v 'NNNNNNNNNN|nnnnnnnnnn' > ./cleanLocus.tmp ;
 					cleanLocus_ntax="$(cat ./cleanLocus.tmp | wc -l)";
-					echo locus"$((count++))" $cleanLocus_ntax $locus_nchar > ./locus_top.tmp ;
+					echo locus"$((count++))" "$cleanLocus_ntax" "$locus_nchar" > ./locus_top.tmp ;
 					cat ./locus_top.tmp ./cleanLocus.tmp >> ./gphocs_body.txt ;
 				else
-					echo locus"$((count++))" $locus_ntax $locus_nchar > ./locus_top.tmp ;
+					echo locus"$((count++))" "$locus_ntax" "$locus_nchar" > ./locus_top.tmp ;
 					cat ./locus_top.tmp ./sites_nogaps.phy >> ./gphocs_body.txt ;
 				fi
 
 			if [[ -s ./sites.fasta ]] && [[ -s ./sites.phy ]] && [[ ! -z ./*.tmp ]] && [[ -s ./sites_nogaps.phy ]]; then
-				rm ./sites.fasta ./sites.phy ./*.tmp ;
+				rm ./sites.fasta ./sites.phy ;
+				if [[ "$(ls -1 ./*.tmp 2>/dev/null | wc -l | sed 's/\ //g')" != "0"  ]]; then 
+					rm ./*.tmp ; 
+				fi
 				rm ./sites_nogaps.phy ;
 			fi
 		done
@@ -307,9 +309,9 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	# --------------------------------------------------
 	# Remove temporary header, threshold and body files.
 	# --------------------------------------------------
-	if [[ -s ./gphocs_top.txt ]]; then rm ./gphocs_top.txt ; fi
-	if [[ -s ./gap_threshold.txt ]]; then rm ./gap_threshold.txt ; fi
-	if [[ ! -z ./gphocs_body* ]]; then rm ./gphocs_body* ; fi
+	if [[ -s ./gphocs_top.txt ]]; then rm ./gphocs_top.txt ; fi ;
+	if [[ -s ./gap_threshold.txt ]]; then rm ./gap_threshold.txt ; fi ;
+	if [[ ! -z ./gphocs_body* ]]; then rm ./gphocs_body* ; fi ;
 
 }
 	shopt -s nullglob
