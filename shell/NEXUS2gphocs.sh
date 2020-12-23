@@ -202,7 +202,7 @@ echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 			   		cat ./sites.phy > ./sites_nogaps.phy ;
 				fi
 					
-			phylip_header="$(head -n1 ./sites_nogaps.phy)";
+			export phylip_header="$(head -n1 ./sites_nogaps.phy)";
 			locus_ntax="$(head -n1 ./sites_nogaps.phy | sed 's/[\ ]*[.0-9]*$//g')";
 			locus_nchar="$(head -n1 ./sites_nogaps.phy | sed 's/[0-9]*\ //g')";
 			
