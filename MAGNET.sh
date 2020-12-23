@@ -999,10 +999,10 @@ if [[ "$STARTING_FILE_TYPE" = "2" ]]; then
 
 	echo "INFO      | $(date) | Copying *ALL* ML gene trees to 'gene_trees' folder in current directory for post-processing..."
 	(
-		for j in ${MY_GENE_TREE_LIST}; do
+		for j in $MY_GENE_TREE_LIST; do
 			echo "$j"
 			cp "$j" ./gene_trees/ ;
-			MY_LOCUS_NAME="$(echo $j | sed 's/\/[A-Za-z.\_\-]*//g')";
+			MY_LOCUS_NAME="$(echo "$j" | sed 's/\/[A-Za-z.\_\-]*//g')";
 			cp ./gene_trees/RAxML_bestTree.raxml_out ./gene_trees/"$MY_LOCUS_NAME"_RAxML_best.tre ;
 			if [[ -s ./gene_trees/RAxML_bestTree.raxml_out ]]; then rm ./gene_trees/RAxML_bestTree.raxml_out ; fi
 		done
