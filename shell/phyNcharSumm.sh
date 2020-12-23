@@ -2,10 +2,10 @@
 
 ##########################################################################################
 #                                                                                        #
-#                           phyNcharSumm v1.0.1, December 2020                           #
+#                           phyNcharSumm v1.0.2, December 2020                           #
 # Author: Justin C. Bagley                                                               #
 # Date: Created by Justin Bagley on November 9, 2016.                                    #
-# Last update: December 21, 2020                                                         #
+# Last update: December 23, 2020                                                         #
 # Copyright (c) 2016-2020 Justin C. Bagley. All rights reserved.                         #
 # Please report bugs to <jbagley@jsu.edu>.                                               #
 #                                                                                        #
@@ -18,7 +18,7 @@
 ######################################## START ###########################################
 
 echo "INFO      | $(date) |----------------------------------------------------------------"
-echo "INFO      | $(date) | phyNcharSumm, v1.0.1 December 2020  (part of PIrANHA v0.4a4)   "
+echo "INFO      | $(date) | phyNcharSumm, v1.0.2 December 2020  (part of PIrANHA v0.4a4)   "
 echo "INFO      | $(date) | Copyright (c) 2016-2020 Justin C. Bagley. All rights reserved. "
 echo "INFO      | $(date) |----------------------------------------------------------------"
 
@@ -30,8 +30,8 @@ echo "INFO      | $(date) |-----------------------------------------------------
 echo "INFO      | $(date) |          Saving number of characters for each alignment in file named './nchar.txt'. "
 (
 	for i in ./*.phy; do 
-		echo $i >> phyalign_names.txt; 
-		echo "$(head -n1 $i | awk -F"[0-9]*\ " '{print $NF}')" >> nchar.txt; 
+		echo "$i" >> phyalign_names.txt; 
+		echo "$(head -n1 $i | awk -F"[0-9]*\ " '{print $NF}')" >> nchar.txt ; 
 	done;
 )
 
