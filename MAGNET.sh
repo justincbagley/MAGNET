@@ -193,7 +193,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	# --------------------------------------------------
 	# Extract charset info from sets block at end of NEXUS file: 
 	# --------------------------------------------------
-	MY_NEXUS_CHARSETS="$(egrep "charset|CHARSET" $MY_NEXUS | \
+	MY_NEXUS_CHARSETS="$(egrep "charset|CHARSET" "$MY_NEXUS" | \
 	awk -F"=" '{print $NF}' | sed 's/\;/\,/g' | \
 	awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' | \
 	sed 's/\,/\,'$CR'/g' | sed 's/^\ //g')" ;
@@ -201,10 +201,10 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 	# Count number of loci present in the NEXUS file, based on number of charsets defined.
 	# Also get corrected count starting from 0 for numbering loci below...
 	MY_NLOCI="$(echo "$MY_NEXUS_CHARSETS" | wc -l)";
-	MY_CORR_NLOCI="$(calc $MY_NLOCI - 1)";
+	MY_CORR_NLOCI="$(calc "$MY_NLOCI" - 1)";
 	
 	# This is the base name of the original nexus file, so you have it. This will not work if NEXUS file name is written in all caps, ".NEX", in the file name.
-	MY_NEXUS_BASENAME="$(echo $MY_NEXUS | sed 's/\.\///g; s/\.nex//g')";
+	MY_NEXUS_BASENAME="$(echo "$MY_NEXUS" | sed 's/\.\///g; s/\.nex//g')";
 	
 	# Convert data file from NEXUS to FASTA format using bioscripts.convert v0.4 Python package:
 	# However, if alignment is too long (>100,000 bp), then need to convert to FASTA using my 
@@ -216,7 +216,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 
 	#---------TODO: ADD IF/THEN CONDITIONAL AND MY OWN NEXUS2FASTA SCRIPT HERE!!!!----------#
 
-	convbioseq fasta $MY_NEXUS > "$MY_NEXUS_BASENAME".fasta ;
+	convbioseq fasta "$MY_NEXUS" > "$MY_NEXUS_BASENAME".fasta ;
 	MY_FASTA="$(echo "$MY_NEXUS_BASENAME".fasta | sed 's/\.\///g; s/\.nex//g')";
 	
 	# The line above creates a file with the name basename.fasta, where basename is the base name of the original .nex file. For example, "hypostomus_str.nex" would be converted to "hypostomus_str.fasta".
@@ -303,7 +303,7 @@ if [[ "$STARTING_FILE_TYPE" = "1" ]] && [[ "$MY_NEXUS" != "NULL" ]]; then
 
 	grep -v "^[0-9]*\ [0-9]*.*$" ./gphocs_body.txt > ./gphocs_body_fix.txt ;
 	sed 's/locus/'$CR'locus/g' ./gphocs_body_fix.txt > ./gphocs_body_fix2.txt ;
-	cat ./gphocs_top.txt ./gphocs_body_fix2.txt > $MY_NEXUS_BASENAME.gphocs ;
+	cat ./gphocs_top.txt ./gphocs_body_fix2.txt > "$MY_NEXUS_BASENAME".gphocs ;
 
 	# CLEANUP: REMOVE UNNECESSARY FILES
 	# --------------------------------------------------
