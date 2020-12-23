@@ -194,7 +194,7 @@ echo "$MY_GAP_THRESHOLD" > ./gap_threshold.txt ;
 				# using UNIX test operator "-s" (returns true if file size is not zero). 
 				# If fails, cat sites.phy into file with same name as nogaps file that
 				# is output by rmGapSites.R and move forward:
-				if [ -s ./gaptest.tmp ]; then
+				if [[ -s ./gaptest.tmp ]]; then
 					echo "Removing column sites in locus${count} with gaps. "
 					R CMD BATCH **/rmGapSites.R ;
 				else
