@@ -44,9 +44,9 @@ Example citation using the MAGNET and PIrANHA URLs:
 
 ## DOI
 
-The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/66839898.svg)](https://zenodo.org/badge/latestdoi/66839898). Here is an example of citing MAGNET using the DOI: 
+The DOI for MAGNET, via Zenodo, is as follows:  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4387279.svg)](https://doi.org/10.5281/zenodo.4387279). Here is an example of citing MAGNET using the DOI: 
   
--   Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: https://doi.org/10.5281/zenodo.596774.
+-   Bagley, J.C. 2020. MAGNET v1.2.0. GitHub package, Available at: https://doi.org/10.5281/zenodo.4387279.
 
 ## INTRODUCTION
 
@@ -413,4 +413,4 @@ I gratefully acknowledge Nayoki Takebayashi, who wrote and freely provided some 
 -   Stamatakis, A. 2014. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics 30.9, 1312-1313.
 -   Vachaspati, P., Warnow, T. 2015. ASTRID: Accurate Species TRees from Internode Distances. BMC Genomics 16(Suppl 10):S3.
 
-_December 23, 2020_ - _Justin C. Bagley, Tuscaloosa, AL, USA_
+_January 4, 2021_ - _Justin C. Bagley, Jacksonville, AL, USA_
